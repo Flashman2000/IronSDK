@@ -23,15 +23,6 @@ public class IronDrive_BETA extends OpMode {
     public void start(){}
 
     @Override
-    public void loop(){
-        double left;
-        double right;
-
-        left = -gamepad1.left_stick_y;
-        right = -gamepad1.right_stick_y;
-
-        ironclad.leftDrive.setPower(left);
-        ironclad.rightDrive.setPower(right);
-    }
+    public void loop(){ ironclad.startRcActivity(gamepad1); }
 
 }
