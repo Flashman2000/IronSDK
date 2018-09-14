@@ -71,6 +71,8 @@ public class Concept_Vuforia extends LinearOpMode {
 
     public static final String TAG = "Vuforia VuMark Sample";
 
+    robot ironclad = new robot();
+
     OpenGLMatrix lastLocation = null;
 
     /**
@@ -90,18 +92,6 @@ public class Concept_Vuforia extends LinearOpMode {
         // OR...  Do Not Activate the Camera Monitor View, to save power
         // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
-        /*
-         * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
-         * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
-         * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
-         * web site at https://developer.vuforia.com/license-manager.
-         *
-         * Vuforia license keys are always 380 characters long, and look as if they contain mostly
-         * random data. As an example, here is a example of a fragment of a valid key:
-         *      ... yIgIzTqZ4mWjk9wd3cZO9T1axEqzuhxoGlfOOI2dRzKS4T0hQ8kT ...
-         * Once you've obtained a license key, copy the string from the Vuforia web site
-         * and paste it in to your code on the next line, between the double quotes.
-         */
         parameters.vuforiaLicenseKey = "AXFONin/////AAABmayDUtVXn0Bhvv0hPyaY2jmLTFDMamEDWBsCsSfBcpTAux5UJMnqw+AQTu2v3iXNecRwrvVC/7PYCoUW5bKFoV8VUPjhKugutdYe4Vtp51axjRFrDmzLh4zuCok1++sNkcFt8Cy5+P/YvLK2zd4sn7bQqsLGu+VMIm/67SzANDtNHS3JJirsodhV5D/EQIdR+35YNg4oGwZrKm0NrjUnDTeF+VDxD3YxFXtzvlDEP3XwkCsHjQi/CQOkVWDZd6hmOVjH0/iWaSy0PFceEv/2cb+gIP4Ke7d46vDM7jwfgzaBBpuZC2e2oBDrwpyZaWeHmLW67M6pzyFWXYJ2osJ36BjtVpfkYlKyUjAR2Wxaz0Ih\n";
 
         /*
@@ -117,15 +107,12 @@ public class Concept_Vuforia extends LinearOpMode {
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
 
-        /**
-         * Load the data set containing the VuMarks for Relic Recovery. There's only one trackable
-         * in this data set: all three of the VuMarks in the game were created from this one template,
-         * but differ in their instance id information.
-         * @see VuMarkInstanceId
-         */
         VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
         VuforiaTrackable relicTemplate = relicTrackables.get(0);
         relicTemplate.setName("relicVuMarkTemplate"); // can help in debugging; otherwise not necessary
+
+        //Initializing Robot
+        ironclad.init(hardwareMap);
 
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
