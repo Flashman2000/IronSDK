@@ -4,3 +4,6 @@
 ### Version 0.1-beta (9/13/18)
 - Method Repository 'robot' created
 - Skeleton RC Program created called 'IronDrive_BETA'
+
+### Version 0.2-beta (9/14/18)
+- Vuforia-based decision making is now in development
