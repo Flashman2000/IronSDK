@@ -37,7 +37,7 @@ public class robot {
         rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    public void startRcActivity(Gamepad gp1){
+    public void startRcActivity(Gamepad gp1, Gamepad gp2){
 
         double left;
         double right;

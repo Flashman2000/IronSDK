@@ -69,7 +69,6 @@ import java.util.List;
  *
  * From the Audience perspective, the Red Alliance station is on the right and the
  * Blue Alliance Station is on the left.
-
  * The four vision targets are located in the center of each of the perimeter walls with
  * the images facing inwards towards the robots:
  *     - BlueRover is the Mars Rover image target on the wall closest to the blue alliance
@@ -91,8 +90,8 @@ import java.util.List;
  * is explained below.
  */
 
-@TeleOp(name="Concept: Vuforia Rover Nav", group ="Concept")
-@Disabled
+@TeleOp(name="Concept: Vuforia Rover Nav1", group ="Concept")
+
 public class ConceptVuforiaNavRoverRuckus extends LinearOpMode {
 
     /*
@@ -107,7 +106,7 @@ public class ConceptVuforiaNavRoverRuckus extends LinearOpMode {
      * Once you've obtained a license key, copy the string from the Vuforia web site
      * and paste it in to your code on the next line, between the double quotes.
      */
-    private static final String VUFORIA_KEY = " -- YOUR NEW VUFORIA KEY GOES HERE  --- ";
+    private static final String VUFORIA_KEY = "AXFONin/////AAABmayDUtVXn0Bhvv0hPyaY2jmLTFDMamEDWBsCsSfBcpTAux5UJMnqw+AQTu2v3iXNecRwrvVC/7PYCoUW5bKFoV8VUPjhKugutdYe4Vtp51axjRFrDmzLh4zuCok1++sNkcFt8Cy5+P/YvLK2zd4sn7bQqsLGu+VMIm/67SzANDtNHS3JJirsodhV5D/EQIdR+35YNg4oGwZrKm0NrjUnDTeF+VDxD3YxFXtzvlDEP3XwkCsHjQi/CQOkVWDZd6hmOVjH0/iWaSy0PFceEv/2cb+gIP4Ke7d46vDM7jwfgzaBBpuZC2e2oBDrwpyZaWeHmLW67M6pzyFWXYJ2osJ36BjtVpfkYlKyUjAR2Wxaz0Ih";
 
     // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
     // We will define some constants and conversions here
@@ -250,7 +249,7 @@ public class ConceptVuforiaNavRoverRuckus extends LinearOpMode {
          * In this example, it is centered (left to right), but 110 mm forward of the middle of the robot, and 200 mm above ground level.
          */
 
-        final int CAMERA_FORWARD_DISPLACEMENT  = 110;   // eg: Camera is 110 mm in front of robot center
+        final int CAMERA_FORWARD_DISPLACEMENT  = 0;   // eg: Camera is 110 mm in front of robot center
         final int CAMERA_VERTICAL_DISPLACEMENT = 200;   // eg: Camera is 200 mm above ground
         final int CAMERA_LEFT_DISPLACEMENT     = 0;     // eg: Camera is ON the robot's center line
 

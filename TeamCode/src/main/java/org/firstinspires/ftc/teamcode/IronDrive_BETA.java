@@ -23,6 +23,6 @@ public class IronDrive_BETA extends OpMode {
     public void start(){}
 
     @Override
-    public void loop(){ ironclad.startRcActivity(gamepad1); }
+    public void loop(){ ironclad.startRcActivity(gamepad1, gamepad2); }
 
 }

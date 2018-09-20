@@ -28,6 +28,7 @@
  */
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -70,8 +71,8 @@ import java.util.List;
  * is explained in {}.
  */
 
-@TeleOp(name="Concept: VuMark Id", group ="Concept")
-@Disabled
+@Autonomous(name="Concept: VuMark Id", group ="Concept")
+
 public class Concept_Vuforia extends LinearOpMode {
 
     public static final String TAG = "Vuforia Navigation Sample";
@@ -107,7 +108,7 @@ public class Concept_Vuforia extends LinearOpMode {
          * Once you've obtained a license key, copy the string from the Vuforia web site
          * and paste it in to your code on the next line, between the double quotes.
          */
-        parameters.vuforiaLicenseKey = " -- YOUR NEW VUFORIA KEY GOES HERE  --- ";
+        parameters.vuforiaLicenseKey = "AXFONin/////AAABmayDUtVXn0Bhvv0hPyaY2jmLTFDMamEDWBsCsSfBcpTAux5UJMnqw+AQTu2v3iXNecRwrvVC/7PYCoUW5bKFoV8VUPjhKugutdYe4Vtp51axjRFrDmzLh4zuCok1++sNkcFt8Cy5+P/YvLK2zd4sn7bQqsLGu+VMIm/67SzANDtNHS3JJirsodhV5D/EQIdR+35YNg4oGwZrKm0NrjUnDTeF+VDxD3YxFXtzvlDEP3XwkCsHjQi/CQOkVWDZd6hmOVjH0/iWaSy0PFceEv/2cb+gIP4Ke7d46vDM7jwfgzaBBpuZC2e2oBDrwpyZaWeHmLW67M6pzyFWXYJ2osJ36BjtVpfkYlKyUjAR2Wxaz0Ih";
 
         /*
          * We also indicate which camera on the RC that we wish to use.
