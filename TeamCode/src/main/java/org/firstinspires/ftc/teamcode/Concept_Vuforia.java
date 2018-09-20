@@ -71,6 +71,7 @@ import java.util.List;
  */
 
 @TeleOp(name="Concept: VuMark Id", group ="Concept")
+@Disabled
 public class Concept_Vuforia extends LinearOpMode {
 
     public static final String TAG = "Vuforia Navigation Sample";
