@@ -25,7 +25,7 @@
 - Class 'IronAutonomous_BETA' which is currently empty
   - Will be later developed
 
-### Version 3.0.0-beta (9/21/18)
+### Version 0.3.0-beta (9/21/18)
 - OpenCV is now in development
   - Only works for last year's objects
   - Will be developed for the new Rover Ruckus objects
