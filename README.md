@@ -13,3 +13,14 @@
 - Cleaned up 'IronDrive_BETA' file
 - Added remote control protocol method to 'robot'
 - Made updates to Vuforia-based decision making program
+
+### Version 0.2.1-beta (9/20/18)
+- Bug fixes for upcoming update
+
+### Version 0.2.2-beta (9/21/18)
+- Added a drivable opmode called 'VuDrive'
+  - Is drivable
+  - Used for testing vuforia coordinate system
+- 'IronDrive_BETA' renamed to 'IronRC_BETA'
+- Class 'IronAutonomous_BETA' which is currently empty
+  - Will be later developed
