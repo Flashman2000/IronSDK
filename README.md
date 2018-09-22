@@ -29,3 +29,6 @@
 - OpenCV is now in development
   - Only works for last year's objects
   - Will be developed for the new Rover Ruckus objects
+  
+### Version 0.3.1-beta (9/21/18)
+- Bug fixes
