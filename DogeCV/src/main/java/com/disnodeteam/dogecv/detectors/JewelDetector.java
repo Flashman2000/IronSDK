@@ -26,8 +26,8 @@ import java.util.List;
 public class JewelDetector extends OpenCVPipeline {
 
     public enum JewelOrder {
-        RED_BLUE,
-        BLUE_RED,
+        RED_YELLOW,
+        YELLOW_RED,
         UNKNOWN
     }
 
@@ -55,7 +55,7 @@ public class JewelDetector extends OpenCVPipeline {
     public double              maxDiffrence     = 10; // Since most of the time the area diffrence is a decimal place
     public boolean             debugContours    = false;
     public DogeCVColorFilter   colorFilterRed   = new LeviColorFilter(LeviColorFilter.ColorPreset.RED);
-    public DogeCVColorFilter   colorFilterBlue  = new LeviColorFilter(LeviColorFilter.ColorPreset.BLUE);
+    public DogeCVColorFilter   colorFilteryellow  = new LeviColorFilter(LeviColorFilter.ColorPreset.YELLOW);
 
 
     private JewelOrder currentOrder = JewelOrder.UNKNOWN;
@@ -65,7 +65,7 @@ public class JewelDetector extends OpenCVPipeline {
     private Mat workingMat = new Mat();
     private Mat blurredMat  = new Mat();
     private Mat maskRed  = new Mat();
-    private Mat maskBlue  = new Mat();
+    private Mat maskyellow  = new Mat();
     private Mat hiarchy  = new Mat();
 
 
@@ -89,10 +89,10 @@ public class JewelDetector extends OpenCVPipeline {
         }
 
         Mat redConvert = workingMat.clone();
-        Mat blueConvert = workingMat.clone();
+        Mat yellowConvert = workingMat.clone();
 
         colorFilterRed.process(redConvert, maskRed);
-        colorFilterBlue.process(blueConvert, maskBlue);
+        colorFilteryellow.process(yellowConvert, maskyellow);
 
         List<MatOfPoint> contoursRed = new ArrayList<>();
 
@@ -166,14 +166,14 @@ public class JewelDetector extends OpenCVPipeline {
 
         }
 
-        List<MatOfPoint> contoursBlue = new ArrayList<>();
+        List<MatOfPoint> contoursyellow = new ArrayList<>();
 
-        Imgproc.findContours(maskBlue, contoursBlue,hiarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
-        Imgproc.drawContours(workingMat,contoursBlue,-1,new Scalar(70,130,230),2);
-        Rect chosenBlueRect = null;
-        double chosenBlueScore = Integer.MAX_VALUE;
+        Imgproc.findContours(maskyellow, contoursyellow,hiarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE);
+        Imgproc.drawContours(workingMat,contoursyellow,-1,new Scalar(70,130,230),2);
+        Rect chosenyellowRect = null;
+        double chosenyellowScore = Integer.MAX_VALUE;
 
-        for(MatOfPoint c : contoursBlue) {
+        for(MatOfPoint c : contoursyellow) {
             MatOfPoint2f contour2f = new MatOfPoint2f(c.toArray());
 
             //Processing on mMOP2f1 which is in type MatOfPoint2f
@@ -221,9 +221,9 @@ public class JewelDetector extends OpenCVPipeline {
             // Update the chosen rect if the diffrence is lower then the curreny chosen
             // Also can add a condition for min diffrence to filter out VERY wrong answers
             // Think of diffrence as score. 0 = perfect
-            if(finalDiffrence < chosenBlueScore && finalDiffrence < maxDiffrence && area > minArea){
-                chosenBlueScore = finalDiffrence;
-                chosenBlueRect = rect;
+            if(finalDiffrence < chosenyellowScore && finalDiffrence < maxDiffrence && area > minArea){
+                chosenyellowScore = finalDiffrence;
+                chosenyellowRect = rect;
             }
 
             if(debugContours && area > 100){
@@ -248,27 +248,27 @@ public class JewelDetector extends OpenCVPipeline {
                     2);
         }
 
-        if(chosenBlueRect != null){
+        if(chosenyellowRect != null){
             Imgproc.rectangle(workingMat,
-                    new Point(chosenBlueRect.x, chosenBlueRect.y),
-                    new Point(chosenBlueRect.x + chosenBlueRect.width, chosenBlueRect.y + chosenBlueRect.height),
+                    new Point(chosenyellowRect.x, chosenyellowRect.y),
+                    new Point(chosenyellowRect.x + chosenyellowRect.width, chosenyellowRect.y + chosenyellowRect.height),
                     new Scalar(0, 0, 255), 2);
 
             Imgproc.putText(workingMat,
-                    "Blue: " + String.format("%.2f", chosenBlueScore),
-                    new Point(chosenBlueRect.x - 5, chosenBlueRect.y - 10),
+                    "yellow: " + String.format("%.2f", chosenyellowScore),
+                    new Point(chosenyellowRect.x - 5, chosenyellowRect.y - 10),
                     Core.FONT_HERSHEY_PLAIN,
                     1.3,
                     new Scalar(0, 0, 255),
                     2);
         }
 
-        if(chosenBlueRect != null && chosenRedRect != null){
-            if(chosenBlueRect.x < chosenRedRect.x){
-                currentOrder = JewelOrder.BLUE_RED;
+        if(chosenyellowRect != null && chosenRedRect != null){
+            if(chosenyellowRect.x < chosenRedRect.x){
+                currentOrder = JewelOrder.YELLOW_RED;
                 lastOrder = currentOrder;
             }else{
-                currentOrder = JewelOrder.RED_BLUE;
+                currentOrder = JewelOrder.RED_YELLOW;
                 lastOrder = currentOrder;
             }
         }else{
@@ -281,7 +281,7 @@ public class JewelDetector extends OpenCVPipeline {
         Imgproc.resize(workingMat,workingMat,initSize);
 
         redConvert.release();
-        blueConvert.release();
+        yellowConvert.release();
         Imgproc.putText(workingMat,"DogeCV 1.1 Jewel: " + newSize.toString() + " - " + speed.toString() + " - " + detectionMode.toString() ,new Point(5,30),0,1.2,new Scalar(0,255,255),2);
 
         return workingMat;
