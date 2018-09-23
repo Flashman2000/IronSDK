@@ -1,11 +1,12 @@
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.testing;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.detectors.*;
+import com.disnodeteam.dogecv.detectors.relicrecovery.JewelDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -15,7 +16,7 @@ import java.io.IOException;
 
 
 @Autonomous(name="DogeCV Jewel Detector", group="DogeCV")
-
+@Disabled
 public class JewelOpMode extends OpMode
 {
     // Declare OpMode members.

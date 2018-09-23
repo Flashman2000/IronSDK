@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.detectors.*;
+import com.disnodeteam.dogecv.detectors.relicrecovery.CryptoboxDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -16,7 +17,7 @@ import java.io.IOException;
 
 
 @TeleOp(name="DogeCV Red Cryptobox Detector", group="DogeCV")
-
+@Disabled
 public class CryptoboxOpMode extends OpMode
 {
     // Declare OpMode members.
