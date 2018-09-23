@@ -33,7 +33,7 @@
 ### Version 0.3.1-beta (9/21/18)
 - Bug fixes
 
-### Version 0.4.0-beta (9/23/18)
+### Version 0.4.0-beta_unstable (9/23/18)
 **This version of IronSDK is EXTREMELY unstable. IT WILL NOT BUILD IN ANDROID STUDIO. Building results in a compiler error. Will be fixed in a future update**
 - OpenCV can now be used to complete Rover Ruckus Objectives
 - OpenCV Updated to OpenCV3
