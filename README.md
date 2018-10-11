@@ -41,3 +41,6 @@
 
 ### Version 0.4.0-beta (9/24/18)
 - Patched fatal bug with using vuforia with opencv
+
+### Version 0.4.1-beta (10/11/18)
+- DogeCV Compter vision library has been updated to v2018.2.1
