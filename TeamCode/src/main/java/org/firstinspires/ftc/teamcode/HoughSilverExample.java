@@ -30,38 +30,32 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
-import com.disnodeteam.dogecv.DogeCV;
-import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
+import com.disnodeteam.dogecv.detectors.roverrukus.HoughSilverDetector;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
-@TeleOp(name="GoldAlign Example", group="DogeCV")
+@TeleOp(name="Hough Silver Example", group="DogeCV")
 
-public class GoldAlignExample extends OpMode
+public class HoughSilverExample extends OpMode
 {
-    private GoldAlignDetector detector;
+    private HoughSilverDetector detector;
 
 
     @Override
     public void init() {
-        telemetry.addData("Status", "DogeCV 2018.0 - Gold Align Example");
+        telemetry.addData("Status", "DogeCV 2018.0 - Gold SilverDetector Example");
 
-        detector = new GoldAlignDetector();
+        detector = new HoughSilverDetector();
+        detector.downscale = 1; //Increase detector sensitivity with smaller size. Make sure to preserve aspect ratio.
+        detector.useFixedDownscale = false;
+        detector.sensitivity = 1.6; //Play with this based on your camera
+        detector.minDistance = 60; //Minimum distance between silver mineral centers in pixels
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance());
         detector.useDefaults();
-
         // Optional Tuning
-        detector.alignSize = 100; // How wide (in pixels) is the range in which the gold object will be aligned. (Represented by green bars in the preview)
-        detector.alignPosOffset = 0; // How far from center frame to offset this alignment zone.
+
         detector.downscale = 0.4; // How much to downscale the input frames
-
-        detector.areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Can also be PERFECT_AREA
-        //detector.perfectAreaScorer.perfectArea = 10000; // if using PERFECT_AREA scoring
-        detector.maxAreaScorer.weight = 0.005;
-
-        detector.ratioScorer.weight = 5;
-        detector.ratioScorer.perfectRatio = 1.0;
 
         detector.enable();
 
@@ -83,8 +77,7 @@ public class GoldAlignExample extends OpMode
 
     @Override
     public void loop() {
-        telemetry.addData("IsAligned" , detector.getAligned()); // Is the bot aligned with the gold mineral
-        telemetry.addData("X Pos" , detector.getXPosition()); // Gold X pos.
+
     }
 
     /*

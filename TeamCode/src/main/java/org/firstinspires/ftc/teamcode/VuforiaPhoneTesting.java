@@ -31,9 +31,11 @@ package org.firstinspires.ftc.teamcode;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
+import com.disnodeteam.dogecv.Dogeforia;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.disnodeteam.dogecv.filters.LeviColorFilter;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.disnodeteam.dogecv.scoring.MaxAreaScorer;
+import com.disnodeteam.dogecv.scoring.RatioScorer;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -72,7 +74,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  */
 
 @TeleOp(name="Vuforia Phone Testing", group="DogeCV")
-@Disabled
+
 public class VuforiaPhoneTesting extends OpMode
 {
 
@@ -100,7 +102,7 @@ public class VuforiaPhoneTesting extends OpMode
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
-        parameters.vuforiaLicenseKey = "AXFONin/////AAABmayDUtVXn0Bhvv0hPyaY2jmLTFDMamEDWBsCsSfBcpTAux5UJMnqw+AQTu2v3iXNecRwrvVC/7PYCoUW5bKFoV8VUPjhKugutdYe4Vtp51axjRFrDmzLh4zuCok1++sNkcFt8Cy5+P/YvLK2zd4sn7bQqsLGu+VMIm/67SzANDtNHS3JJirsodhV5D/EQIdR+35YNg4oGwZrKm0NrjUnDTeF+VDxD3YxFXtzvlDEP3XwkCsHjQi/CQOkVWDZd6hmOVjH0/iWaSy0PFceEv/2cb+gIP4Ke7d46vDM7jwfgzaBBpuZC2e2oBDrwpyZaWeHmLW67M6pzyFWXYJ2osJ36BjtVpfkYlKyUjAR2Wxaz0Ih";
+        parameters.vuforiaLicenseKey = "AWbfTmn/////AAABmY0xuIe3C0RHvL3XuzRxyEmOT2OekXBSbqN2jot1si3OGBObwWadfitJR/D6Vk8VEBiW0HG2Q8UAEd0//OliF9aWCRmyDJ1mMqKCJZxpZemfT5ELFuWnJIZWUkKyjQfDNe2RIaAh0ermSxF4Bq77IDFirgggdYJoRIyi2Ys7Gl9lD/tSonV8OnldIN/Ove4/MtEBJTKHqjUEjC5U2khV+26AqkeqbxhFTNiIMl0LcmSSfugGhmWFGFtuPtp/+flPBRGoBO+tSl9P2sV4mSUBE/WrpHqB0Jd/tAmeNvbtgQXtZEGYc/9NszwRLVNl9k13vrBcgsiNxs2UY5xAvA4Wb6LN7Yu+tChwc+qBiVKAQe09\n";
         parameters.fillCameraMonitorViewParent = true;
 
 
