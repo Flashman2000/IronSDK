@@ -15,6 +15,10 @@ public class robot {
 
     public DcMotor leftDrive = null;
     public DcMotor rightDrive = null;
+    public String Right = "Right";
+    public String Left = "Left";
+    public String Center = "Center";
+    public String Unknown = "Unknown";
 
     public SamplingOrderDetector detector;
 
@@ -78,6 +82,17 @@ public class robot {
 
         tele.addData("Current Order" , detector.getCurrentOrder().toString()); // The current result for the frame
         tele.addData("Last Order" , detector.getLastOrder().toString()); // The last known result
+
+        if (detector.getCurrentOrder() == SamplingOrderDetector.GoldLocation.RIGHT){
+            tele.addData("Position Tester", Right);
+        }else if (detector.getCurrentOrder() == SamplingOrderDetector.GoldLocation.LEFT){
+            tele.addData("Position Tester", Left);
+        }else if (detector.getCurrentOrder() == SamplingOrderDetector.GoldLocation.CENTER){
+            tele.addData("Position Tester", Center);
+        }else{
+            tele.addData("Position Tester", Unknown);
+        }
+        tele.update();
 
     }
 
