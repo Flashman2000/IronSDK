@@ -7,7 +7,7 @@ public class IronRC_BETA extends OpMode {
     robot ironclad = new robot();
 
     @Override
-    public void init(){ ironclad.init(hardwareMap); }
+    public void init(){ ironclad.init(hardwareMap, telemetry); }
 
     @Override
     public void init_loop() {}
@@ -16,7 +16,10 @@ public class IronRC_BETA extends OpMode {
     public void start(){}
 
     @Override
-    public void loop(){ ironclad.startRcActivity(gamepad1, gamepad2); }
+    public void loop(){ ironclad.startRcActivity(gamepad1, gamepad2, telemetry); }
+
+    @Override
+    public void stop() {ironclad.detector.disable();}
 
 }
 
