@@ -1,5 +1,5 @@
 //
-// build.gradle in FtcRobotController
+// build.gradle for FtcRobotController
 //
 apply plugin: 'com.android.library'
 
