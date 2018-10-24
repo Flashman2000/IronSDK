@@ -45,3 +45,7 @@
 ### Version 0.4.1-beta (10/11/18)
 - DogeCV Compter vision library has been updated to v2018.2.1
 - DogeCV implemented into robot.java repository and in IronRC_BETA.java
+
+### Version 0.5.0 (10/23/18)
+- First version of beta that is close to competition ready
+- Refer to master branch readme
