@@ -5,12 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class IronAutonomous_BETA extends LinearOpMode {
-
-    /**
-     *
-     * Will not be developed until robot lin. slide system is done
-     *
-     */
+    
     robot robot = new robot();
     public ElapsedTime runtimeauto = new ElapsedTime();
 
