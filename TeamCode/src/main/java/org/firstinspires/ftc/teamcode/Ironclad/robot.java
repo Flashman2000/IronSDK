@@ -31,7 +31,7 @@ public class robot {
         rightDrive = hwm.get(DcMotor.class, "rightDrive");
         horzSlide = hwm.get(DcMotor.class, "horzSlide");
         vertSlide = hwm.get(DcMotor.class, "verSlide");
-        linActuator = hwm.get)DcMotor.class, "linAct");
+        linActuator = hwm.get(DcMotor.class, "linAct");
 
         leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -85,7 +85,7 @@ public class robot {
         if(gp2.dpad_up){
             vert = 1;
         }else if(gp2.dpad_down){
-            vert = -1
+            vert = -1;
         }else{
             vert = 0;
         }
