@@ -7,3 +7,8 @@
   - Tweaks may be made to teleop depending on driver pref.
   - Autonomous may be added upon/tweaked
     - in which case a hotfix will be released
+- Details on changes:
+  - IronRC is now competition ready
+  - IronAutonomous is in theoretical development stage (yet to test)
+  - DogeCV now works with the new 2018-2019 challenge items
+  - class 'robot' is now updated with new methods to help in autonomous and utilize REV imu
