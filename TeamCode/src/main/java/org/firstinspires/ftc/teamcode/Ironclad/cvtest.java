@@ -1,55 +1,24 @@
-/* Copyright (c) 2017 FIRST. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted (subject to the limitations in the disclaimer below) provided that
- * the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice, this list
- * of conditions and the following disclaimer.
- *
- * Redistributions in binary form must reproduce the above copyright notice, this
- * list of conditions and the following disclaimer in the documentation and/or
- * other materials provided with the distribution.
- *
- * Neither the name of FIRST nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.
- *
- * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
- * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-package org.firstinspires.ftc.teamcode.DogeCV;
+package org.firstinspires.ftc.teamcode.Ironclad;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.Dogeforia;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
-import com.disnodeteam.dogecv.detectors.roverrukus.GoldDetector;
-import com.disnodeteam.dogecv.detectors.roverrukus.SamplingOrderDetector;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
-import org.firstinspires.ftc.teamcode.Ironclad.robot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,48 +30,42 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 
-/**
- * This file contains an example of an iterative (Non-Linear) "OpMode".
- * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
- * The names of OpModes appear on the menu of the FTC Driver Station.
- * When an selection is made from the menu, the corresponding OpMode
- * class is instantiated on the Robot Controller and executed.
- *
- * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
- * It includes all the skeletal structure that all iterative OpModes contain.
- *
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- */
+@Autonomous(name = "CVTest")
+public class cvtest extends LinearOpMode {
+    private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
 
-@TeleOp(name="Vuforia Webcam Testing", group="DogeCV")
-
-public class VuforiaWebcamTesting extends LinearOpMode
-{
 
     private ElapsedTime runtime = new ElapsedTime();
     private static final float mmPerInch        = 25.4f;
     private static final float mmFTCFieldWidth  = (12*6) * mmPerInch;       // the width of the FTC field (from the center point to the outer panels)
-    private static final float mmTargetHeight   = (6) * mmPerInch;          // the height of the center of the target image above the floor
-
-    // Select which camera you want use.  The FRONT camera is the one on the same side as the screen.
-    // Valid choices are:  BACK or FRONT
-    private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-
-    private OpenGLMatrix lastLocation = null;
+    private static final float mmTargetHeight   = (6) * mmPerInch;private OpenGLMatrix lastLocation = null;
     boolean targetVisible;
     Dogeforia vuforia;
     WebcamName webcamName;
     List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
 
     GoldAlignDetector detector;
-    robot bot = new robot();
+
+    robot robot = new robot();
+    public Orientation angles;
+    public float pitch;
+    float heading;
+    double goalPitch = -90;
+    float goalHeading= -80;
+    boolean left = false;
+    boolean right = false;
+    boolean center = false;
+    boolean isAligned = false;
+    boolean mhm;
+    double pos = 0;
 
     @Override
     public void runOpMode() {
+        robot.initTele(hardwareMap, telemetry);
+        angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-        bot.initTele(hardwareMap, telemetry);
-
+        pitch = angles.thirdAngle;
+        heading = angles.firstAngle;
         telemetry.addLine("1");
         telemetry.update();
         webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
@@ -184,28 +147,48 @@ public class VuforiaWebcamTesting extends LinearOpMode
         vuforia.enableDogeCV();
         vuforia.showDebug();
         vuforia.start();
+
+        mhm = detector.getAligned();
+        telemetry.addData("ALigned", detector.getAligned());
+        telemetry.update();
+        if (mhm) {
+            isAligned = true;
+            center = true;
+            goalHeading = -80;
+            telemetry.addLine("Center");
+            telemetry.update();
+        }
+        if(!mhm){
+            if(detector.getXPosition() > 400){
+                isAligned = false;
+                right = true;
+                goalHeading = -100;
+                telemetry.addLine("Right");
+                telemetry.update();
+            }
+
+            if(detector.getXPosition() < 200){
+                isAligned = false;
+                left = true;
+                goalHeading = -60;
+                telemetry.addLine("Left");
+                telemetry.update();
+            }
+
+        }
         telemetry.addLine("GO NIGGA");
+        telemetry.update();
+        //telemetry.addData("IsAligned" , detector.getAligned()); // Is the bot aligned with the gold mineral
+        //telemetry.addData("X Pos" , detector.getXPosition()); // Gold X pos.
         telemetry.update();
         waitForStart();
         telemetry.clear();
 
-        boolean mhm = detector.getAligned();
-        double pos = detector.getXPosition();
 
 
-        while ((opModeIsActive())){
-            telemetry.addData("ald", mhm);
-            telemetry.addData("yeet", pos);
-            telemetry.addData("IsAligned", detector.getAligned()); // Is the bot aligned with the gold mineral
-            telemetry.addData("X Pos", detector.getXPosition()); // Gold X pos.
-            telemetry.update();
-
-            while(detector. getXPosition() < 50){}
-            
-
-        }
 
 
 
     }
+
 }

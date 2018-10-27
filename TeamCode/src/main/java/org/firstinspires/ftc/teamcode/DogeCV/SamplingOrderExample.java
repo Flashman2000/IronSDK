@@ -32,12 +32,13 @@ package org.firstinspires.ftc.teamcode.DogeCV;
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.SamplingOrderDetector;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
 @TeleOp(name="Sampling Order Example", group="DogeCV")
-
+@Disabled
 public class SamplingOrderExample extends OpMode
 {
     private SamplingOrderDetector detector;
@@ -51,7 +52,7 @@ public class SamplingOrderExample extends OpMode
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance());
         detector.useDefaults();
 
-        detector.downscale = 0.4; // How much to downscale the input frames
+        detector.downscale = 1; // How much to downscale the input frames
 
         // Optional Tuning
         detector.areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Can also be PERFECT_AREA
@@ -81,8 +82,7 @@ public class SamplingOrderExample extends OpMode
 
     @Override
     public void loop() {
-        telemetry.addData("Current Order" , detector.getCurrentOrder().toString()); // The current result for the frame
-        telemetry.addData("Last Order" , detector.getLastOrder().toString()); // The last known result
+
     }
 
     /*
