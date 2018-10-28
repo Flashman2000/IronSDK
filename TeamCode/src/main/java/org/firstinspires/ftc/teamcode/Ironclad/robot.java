@@ -45,39 +45,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 //import static org.firstinspires.ftc.teamcode.Ironclad.IronAutonomous_BETA.COUNTS_PER_INCH;
 
-public class robot {
-
-    public DcMotor leftDrive = null;
-    public DcMotor rightDrive = null;
-    public DcMotor horzSlide = null;
-    public DcMotor vertSlide = null;
-    public DcMotor linActuator = null;
-    public DcMotor boxWinch = null;
-
-    public Servo release = null;
-    double serv = 0;
-
-    public CRServo Box = null;
-
-    public BNO055IMU imu;
-
-    public Orientation angles;
-    public Acceleration gravity;
-
-    public WebcamName webcamName;
-    
-    public GoldAlignDetector detector = new GoldAlignDetector();
-    private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-
-    private OpenGLMatrix lastLocation = null;
-    boolean targetVisible;
-    Dogeforia vuforia;
-    //WebcamName webcamName;
-    List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
-
-    HardwareMap hwm = null;
-    Telemetry tele = null;
-    private ElapsedTime period = new ElapsedTime();
+public class robot extends VarRepo{
 
     public robot(){}
 
@@ -113,8 +81,6 @@ public class robot {
         vertSlide.setDirection(DcMotorSimple.Direction.FORWARD);
         linActuator.setDirection(DcMotorSimple.Direction.FORWARD);
 
-
-
         leftDrive.setPower(0);
         rightDrive.setPower(0);
         horzSlide.setPower(0);
@@ -136,6 +102,7 @@ public class robot {
         composetelemetry(tel);
         tel.addLine("1");
         tel.update();
+
         webcamName = hwm.get(WebcamName.class, "Webcam 1");
 
         tel.addLine("1;");
@@ -166,8 +133,41 @@ public class robot {
 
         // For convenience, gather together all the trackable objects in one easily-iterable collection */
 
-        //allTrackables.addAll(targetsRoverRuckus);
+        allTrackables.addAll(targetsRoverRuckus);
 
+        OpenGLMatrix blueRoverLocationOnField = OpenGLMatrix
+                .translation(0, mmFTCFieldWidth, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0));
+        blueRover.setLocation(blueRoverLocationOnField);
+
+        OpenGLMatrix redFootprintLocationOnField = OpenGLMatrix
+                .translation(0, -mmFTCFieldWidth, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180));
+        redFootprint.setLocation(redFootprintLocationOnField);
+
+        OpenGLMatrix frontCratersLocationOnField = OpenGLMatrix
+                .translation(-mmFTCFieldWidth, 0, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90));
+        frontCraters.setLocation(frontCratersLocationOnField);
+
+        OpenGLMatrix backSpaceLocationOnField = OpenGLMatrix
+                .translation(mmFTCFieldWidth, 0, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90));
+        backSpace.setLocation(backSpaceLocationOnField);
+
+
+        final int CAMERA_FORWARD_DISPLACEMENT = 110;   // eg: Camera is 110 mm in front of robot center
+        final int CAMERA_VERTICAL_DISPLACEMENT = 200;   // eg: Camera is 200 mm above ground
+        final int CAMERA_LEFT_DISPLACEMENT = 0;     // eg: Camera is ON the robot's center line
+
+        OpenGLMatrix phoneLocationOnRobot = OpenGLMatrix
+                .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES,
+                        CAMERA_CHOICE == FRONT ? 90 : -90, 0, 0));
+
+        for (VuforiaTrackable trackable : allTrackables) {
+            ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(phoneLocationOnRobot, params.cameraDirection);
+        }
 
         targetsRoverRuckus.activate();
 
@@ -187,6 +187,7 @@ public class robot {
 
 
     }
+
     public void initTele(HardwareMap ahwm, Telemetry tel){
         hwm = ahwm;
         tele = tel;
@@ -254,15 +255,12 @@ public class robot {
         double lin;
         double winch;
 
-
-        //imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
-
         left = -gp1.left_stick_y;
         right = -gp1.right_stick_y;
         lin = gp1.right_trigger - gp1.left_trigger;
         winch = (-gp2.left_stick_y)/3;
 
-        if(gp1.a){
+        if(gp1.x){
             serv = 1;
         }else if(gp1.b){
             serv = -1;
@@ -291,8 +289,6 @@ public class robot {
         }else{
             vert = 0;
         }
-
-
 
         leftDrive.setPower(left);
         rightDrive.setPower(right);
