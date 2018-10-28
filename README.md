@@ -5,7 +5,6 @@
 - First sync from beta branch
 - SDK is mostly competition ready.
   - Tweaks may be made to teleop depending on driver pref.
-  - Autonomous may be added upon/tweaked
     - in which case a hotfix will be released
 - Details on changes:
   - IronRC is now competition ready
