@@ -12,3 +12,7 @@
   - IronAutonomous is in theoretical development stage (yet to test)
   - DogeCV now works with the new 2018-2019 challenge items
   - class 'robot' is now updated with new methods to help in autonomous and utilize REV imu
+
+### Version 0.5.1 (10/27/2018)
+- Beginning of development for competition-level autonomous
+- Tele-op is completely done with technical development
