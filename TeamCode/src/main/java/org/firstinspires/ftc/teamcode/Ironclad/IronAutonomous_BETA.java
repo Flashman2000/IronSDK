@@ -97,7 +97,7 @@ public class IronAutonomous_BETA extends LinearOpMode
                 telemetry.addData("Block", center);
                 telemetry.update();
             }else if(!aligned){
-                if(robot.detector.getXPosition() > 400){
+                if(pos > 400){
                     right = true; center = false; left = false;
                     goalHeading = -100;
                     telemetry.addData("Block", right);
