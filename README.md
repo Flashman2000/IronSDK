@@ -49,3 +49,6 @@
 ### Version 0.5.0 (10/23/18)
 - First version of beta that is close to competition ready
 - Refer to master branch readme
+
+### Version 0.5.1 (10/27/18)
+- Refer to master branch readme
