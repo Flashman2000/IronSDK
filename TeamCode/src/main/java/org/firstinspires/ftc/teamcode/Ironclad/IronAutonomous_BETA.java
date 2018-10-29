@@ -30,8 +30,11 @@
 package org.firstinspires.ftc.teamcode.Ironclad;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.ftccommon.internal.RunOnBoot;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -51,7 +54,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Vuforia Webcam Testing", group="DogeCV")
+@Autonomous(name="IronAuto", group="DogeCV")
 
 public class IronAutonomous_BETA extends LinearOpMode
 {
@@ -63,11 +66,12 @@ public class IronAutonomous_BETA extends LinearOpMode
     private boolean right = false;
     public Orientation angles;
     float goalHeading = -80;
-    double goalPitch = -90;
+    double goalPitch = -89;
     public float pitch;
     float heading;
     boolean aligned;
     double pos;
+    int count = 0;
 
     @Override
     public void runOpMode() {
@@ -79,12 +83,17 @@ public class IronAutonomous_BETA extends LinearOpMode
 
         while (opModeIsActive()){
 
-            while ((opModeIsActive() && robot.detector.getXPosition() < 100)) {
+            angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            pitch =  angles.thirdAngle;
+
+            while ((opModeIsActive() && count < 2 )) {
                 telemetry.addData("IsAligned", robot.detector.getAligned()); // Is the robot aligned with the gold mineral
                 telemetry.addData("X Pos", robot.detector.getXPosition()); // Gold X pos.
                 telemetry.update();
                 aligned = robot.detector.getAligned();
                 pos = robot.detector.getXPosition();
+                sleep(500);
+                count++;
             }
 
             telemetry.addData("align_ver", aligned);
@@ -94,17 +103,17 @@ public class IronAutonomous_BETA extends LinearOpMode
             if(aligned){
                 center = true; right = false; left = false;
                 goalHeading = -80;
-                telemetry.addData("Block", center);
+                telemetry.addData("Center", center);
                 telemetry.update();
             }else if(!aligned){
                 if(robot.detector.getXPosition() > 400){
                     right = true; center = false; left = false;
-                    goalHeading = -100;
-                    telemetry.addData("Block", right);
+                    goalHeading = -105;
+                    telemetry.addData("Right", right);
                     telemetry.update();
                 }else{
                     left = true; center = false; right = false;
-                    goalHeading = -60;
+                    goalHeading = -55;
                     telemetry.addData("Left", left);
                     telemetry.update();
                 }
@@ -112,11 +121,11 @@ public class IronAutonomous_BETA extends LinearOpMode
 
             sleep(2000);
 
-            robot.linActuator.setPower(-1);
+            robot.linActuator.setPower(1);
 
             sleep(1000);
 
-            while(robot.pitch < goalPitch && opModeIsActive()){
+            while(pitch < goalPitch && opModeIsActive()){
                 angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 pitch =  angles.thirdAngle;
             }
@@ -134,6 +143,48 @@ public class IronAutonomous_BETA extends LinearOpMode
 
             robot.leftDrive.setPower(0);
             robot.rightDrive.setPower(0);
+
+            robot.boxWinch.setPower(-0.6);
+
+            sleep(200);
+
+            robot.boxWinch.setPower(0);
+
+            robot.rightDrive.setPower(0.4);
+            robot.leftDrive.setPower(0.4);
+            robot.Box.setPower(-1);
+
+            sleep(1500);
+
+            robot.rightDrive.setPower(0);
+            robot.leftDrive.setPower(0);
+
+            sleep(1000);
+
+            robot.Box.setPower(0);
+
+            robot.rightDrive.setPower(1);
+            robot.leftDrive.setPower(1);
+
+            sleep(100);
+
+            robot.rightDrive.setPower(0);
+            robot.leftDrive.setPower(0);
+
+            sleep(200);
+
+            robot.leftDrive.setPower(0.5);
+            robot.rightDrive.setPower(-0.5);
+
+            sleep(2000);
+
+
+            robot.leftDrive.setPower(0);
+            robot.rightDrive.setPower(0);
+
+            robot.release.setPosition(1);
+
+
 
 
             break;
