@@ -105,43 +105,11 @@ public class VuforiaWebcamTesting extends LinearOpMode
 
         while (opModeIsActive()){
 
-            while ((opModeIsActive() && bot.detector.getXPosition() < 100)) {
-                telemetry.addData("IsAligned", bot.detector.getAligned()); // Is the bot aligned with the gold mineral
-                telemetry.addData("X Pos", bot.detector.getXPosition()); // Gold X pos.
-                telemetry.update();
-            }
-            boolean aligned = bot.detector.getAligned();
-            double pos = bot.detector.getXPosition();
-            telemetry.addData("align_ver", aligned);
-            telemetry.addData("pos_ver", pos);
-            telemetry.update();
-
-            if(aligned){
-                center = true;
-                goalHeading = -80;
-                telemetry.addData("Block", center);
-                telemetry.update();
-            }else if(!aligned){
-                if(bot.detector.getXPosition() > 400){
-                    right = true;
-                    goalHeading = 100;
-                    telemetry.addData("Block", right);
-                    telemetry.update();
-                }else{
-                    left = true;
-                    goalHeading = -60;
-                    telemetry.addData("Left", left);
-                    telemetry.update();
-                }
-            }
-
-            sleep(2000);
-
             bot.linActuator.setPower(-1);
 
             sleep(1000);
 
-            while(bot.pitch < goalPitch && opModeIsActive()){
+            while(pitch < goalPitch && opModeIsActive()){
                 angles = bot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 pitch =  angles.thirdAngle;
             }
@@ -149,16 +117,7 @@ public class VuforiaWebcamTesting extends LinearOpMode
             sleep(300);
             bot.linActuator.setPower(0);
 
-            bot.leftDrive.setPower(0.5);
-            bot.rightDrive.setPower(-0.5);
 
-            while (heading > goalHeading && opModeIsActive()){
-                angles = bot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                heading = angles.firstAngle;
-            }
-
-            bot.leftDrive.setPower(0);
-            bot.rightDrive.setPower(0);
 
         }
 
