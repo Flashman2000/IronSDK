@@ -32,9 +32,7 @@ package org.firstinspires.ftc.teamcode.Ironclad;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.ftccommon.internal.RunOnBoot;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -45,9 +43,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
  * The names of OpModes appear on the menu of the FTC Driver Station.
  * When an selection is made from the menu, the corresponding OpMode
- * class is instantiated on the robot Controller and executed.
+ * class is instantiated on the RobotConfigs Controller and executed.
  *
- * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
+ * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled RobotConfigs
  * It includes all the skeletal structure that all iterative OpModes contain.
  *
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
@@ -59,7 +57,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 public class IronAutonomous_BETA extends LinearOpMode
 {
 
-    robot robot = new robot();
+    RobotConfigs robot = new RobotConfigs();
+    RobotMovements roboAction = new RobotMovements();
 
     private boolean center = false;
     private boolean left = false;
@@ -87,7 +86,7 @@ public class IronAutonomous_BETA extends LinearOpMode
             pitch =  angles.thirdAngle;
 
             while ((opModeIsActive() && count < 2 )) {
-                telemetry.addData("IsAligned", robot.detector.getAligned()); // Is the robot aligned with the gold mineral
+                telemetry.addData("IsAligned", robot.detector.getAligned()); // Is the RobotConfigs aligned with the gold mineral
                 telemetry.addData("X Pos", robot.detector.getXPosition()); // Gold X pos.
                 telemetry.update();
                 aligned = robot.detector.getAligned();
@@ -183,9 +182,6 @@ public class IronAutonomous_BETA extends LinearOpMode
             robot.rightDrive.setPower(0);
 
             robot.release.setPosition(1);
-
-
-
 
             break;
         }
