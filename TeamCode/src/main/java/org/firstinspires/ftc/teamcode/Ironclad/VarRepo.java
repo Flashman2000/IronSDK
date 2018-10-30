@@ -24,42 +24,46 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 public class VarRepo {
 
+    //Declared Constants
     public static final float mmPerInch        = 25.4f;
     public static final float mmFTCFieldWidth  = (12*6) * mmPerInch;       // the width of the FTC field (from the center point to the outer panels)
     public static final float mmTargetHeight   = (6) * mmPerInch;
 
+    //Robot Objects
     public DcMotor leftDrive = null;
     public DcMotor rightDrive = null;
     public DcMotor horzSlide = null;
     public DcMotor vertSlide = null;
     public DcMotor linActuator = null;
     public DcMotor boxWinch = null;
-
     public Servo release = null;
-    public double serv = 0;
-
     public CRServo Box = null;
-
     public BNO055IMU imu;
-
-    public Orientation angles;
-    public Acceleration gravity;
-
     public WebcamName webcamName;
 
+    //Computer Vision
     public GoldAlignDetector detector = new GoldAlignDetector();
     public static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-
     public OpenGLMatrix lastLocation = null;
     public boolean targetVisible;
     public Dogeforia vuforia;
     public List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
+    public boolean aligned;
+    public double pos;
 
-    public HardwareMap hwm = null;
-    public Telemetry tele = null;
-    public ElapsedTime period = new ElapsedTime();
+    //General
+    public boolean center;
+    public boolean left;
+    public boolean right;
+    public float goalHeading;
+
+
     public float pitch;
     public float heading;
+    public int count;
+    public double serv = 0;
+    public Orientation angles;
+    public Acceleration gravity;
 
 
 }

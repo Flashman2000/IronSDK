@@ -29,42 +29,14 @@
 
 package org.firstinspires.ftc.teamcode.DogeCV;
 
-import com.disnodeteam.dogecv.CameraViewDisplay;
-import com.disnodeteam.dogecv.DogeCV;
-import com.disnodeteam.dogecv.Dogeforia;
-import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
-import com.disnodeteam.dogecv.detectors.roverrukus.GoldDetector;
-import com.disnodeteam.dogecv.detectors.roverrukus.SamplingOrderDetector;
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
-import org.firstinspires.ftc.teamcode.Ironclad.robot;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.INTRINSIC;
-import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
-import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
+import org.firstinspires.ftc.teamcode.Ironclad.RobotConfigs;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -73,7 +45,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  * When an selection is made from the menu, the corresponding OpMode
  * class is instantiated on the Robot Controller and executed.
  *
- * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
+ * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled RobotConfigs
  * It includes all the skeletal structure that all iterative OpModes contain.
  *
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
@@ -85,7 +57,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 public class VuforiaWebcamTesting extends LinearOpMode
 {
 
-    robot bot = new robot();
+    RobotConfigs bot = new RobotConfigs();
     private boolean center = false;
     private boolean left = false;
     private boolean right = false;

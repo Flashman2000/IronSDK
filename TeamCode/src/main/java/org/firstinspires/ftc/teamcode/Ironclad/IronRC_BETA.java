@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Ironclad;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -8,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 public class IronRC_BETA extends OpMode {
 
-    robot ironclad = new robot();
+    RobotConfigs ironclad = new RobotConfigs();
 
     @Override
     public void init(){ ironclad.initTele(hardwareMap, telemetry); }

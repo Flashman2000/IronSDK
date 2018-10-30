@@ -65,7 +65,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  * When an selection is made from the menu, the corresponding OpMode
  * class is instantiated on the Robot Controller and executed.
  *
- * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
+ * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled RobotConfigs
  * It includes all the skeletal structure that all iterative OpModes contain.
  *
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
@@ -144,9 +144,9 @@ public class VuforiaPhoneTesting extends OpMode
         backSpace.setLocation(backSpaceLocationOnField);
 
 
-        final int CAMERA_FORWARD_DISPLACEMENT  = 110;   // eg: Camera is 110 mm in front of robot center
+        final int CAMERA_FORWARD_DISPLACEMENT  = 110;   // eg: Camera is 110 mm in front of RobotConfigs center
         final int CAMERA_VERTICAL_DISPLACEMENT = 200;   // eg: Camera is 200 mm above ground
-        final int CAMERA_LEFT_DISPLACEMENT     = 0;     // eg: Camera is ON the robot's center line
+        final int CAMERA_LEFT_DISPLACEMENT     = 0;     // eg: Camera is ON the RobotConfigs's center line
 
         OpenGLMatrix phoneLocationOnRobot = OpenGLMatrix
                 .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
@@ -206,14 +206,14 @@ public class VuforiaPhoneTesting extends OpMode
             }
         }
 
-        // Provide feedback as to where the robot is located (if we know).
+        // Provide feedback as to where the RobotConfigs is located (if we know).
         if (targetVisible) {
-            // express position (translation) of robot in inches.
+            // express position (translation) of RobotConfigs in inches.
             VectorF translation = lastLocation.getTranslation();
             telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
                     translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
 
-            // express the rotation of the robot in degrees.
+            // express the rotation of the RobotConfigs in degrees.
             Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
             telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
         }

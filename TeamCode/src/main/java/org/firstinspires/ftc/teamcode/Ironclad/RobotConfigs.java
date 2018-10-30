@@ -45,14 +45,11 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 //import static org.firstinspires.ftc.teamcode.Ironclad.IronAutonomous_BETA.COUNTS_PER_INCH;
 
-public class robot extends VarRepo{
+public class RobotConfigs extends VarRepo{
 
-    public robot(){}
+    public RobotConfigs(){}
 
-    public void initAuto(HardwareMap ahwm, Telemetry tel){
-
-        hwm = ahwm;
-        tele = tel;
+    public void initAuto(HardwareMap hwm, Telemetry tel){
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
@@ -156,9 +153,9 @@ public class robot extends VarRepo{
         backSpace.setLocation(backSpaceLocationOnField);
 
 
-        final int CAMERA_FORWARD_DISPLACEMENT = 110;   // eg: Camera is 110 mm in front of robot center
+        final int CAMERA_FORWARD_DISPLACEMENT = 110;   // eg: Camera is 110 mm in front of RobotConfigs center
         final int CAMERA_VERTICAL_DISPLACEMENT = 200;   // eg: Camera is 200 mm above ground
-        final int CAMERA_LEFT_DISPLACEMENT = 0;     // eg: Camera is ON the robot's center line
+        final int CAMERA_LEFT_DISPLACEMENT = 0;     // eg: Camera is ON the RobotConfigs's center line
 
         OpenGLMatrix phoneLocationOnRobot = OpenGLMatrix
                 .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
@@ -188,9 +185,8 @@ public class robot extends VarRepo{
 
     }
 
-    public void initTele(HardwareMap ahwm, Telemetry tel){
-        hwm = ahwm;
-        tele = tel;
+    public void initTele(HardwareMap hwm, Telemetry tel){
+
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
@@ -238,15 +234,11 @@ public class robot extends VarRepo{
         vertSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         linActuator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        composetelemetry(tel);
-        tel.addLine("1");
-        tel.update();
+
 
     }
 
     public void startRcActivity(Gamepad gp1, Gamepad gp2, Telemetry tel){
-
-        tele = tel;
 
         double left;
         double right;
