@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode.Ironclad;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name="DRIVE")
+@TeleOp(name="Robot Control")
 
-public class IronRC_BETA extends OpMode {
+public class IronRC extends OpMode {
 
     RobotConfigs ironclad = new RobotConfigs();
 

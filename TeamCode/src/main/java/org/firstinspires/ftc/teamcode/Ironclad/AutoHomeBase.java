@@ -52,9 +52,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="IronAuto", group="DogeCV")
-
-public class IronAutonomous_BETA extends LinearOpMode
+@Autonomous(name="Home Base")
+public class AutoHomeBase extends LinearOpMode
 {
 
     RobotConfigs robot = new RobotConfigs();
@@ -80,12 +79,12 @@ public class IronAutonomous_BETA extends LinearOpMode
         waitForStart();
         telemetry.clear();
 
-        while (opModeIsActive()){
+        while (opModeIsActive()) {
 
             angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            pitch =  angles.thirdAngle;
+            pitch = angles.thirdAngle;
 
-            while ((opModeIsActive() && count < 2 )) {
+            while ((opModeIsActive() && count < 2)) {
                 telemetry.addData("IsAligned", robot.detector.getAligned()); // Is the RobotConfigs aligned with the gold mineral
                 telemetry.addData("X Pos", robot.detector.getXPosition()); // Gold X pos.
                 telemetry.update();
@@ -99,19 +98,25 @@ public class IronAutonomous_BETA extends LinearOpMode
             telemetry.addData("pos_ver", pos);
             telemetry.update();
 
-            if(aligned){
-                center = true; right = false; left = false;
+            if (aligned) {
+                center = true;
+                right = false;
+                left = false;
                 goalHeading = -80;
                 telemetry.addData("Center", center);
                 telemetry.update();
-            }else if(!aligned){
-                if(pos > 400){
-                    right = true; center = false; left = false;
+            } else if (!aligned) {
+                if (pos > 400) {
+                    right = true;
+                    center = false;
+                    left = false;
                     goalHeading = -105;
                     telemetry.addData("Right", right);
                     telemetry.update();
-                }else{
-                    left = true; center = false; right = false;
+                } else {
+                    left = true;
+                    center = false;
+                    right = false;
                     goalHeading = -55;
                     telemetry.addData("Left", left);
                     telemetry.update();
@@ -124,9 +129,13 @@ public class IronAutonomous_BETA extends LinearOpMode
 
             sleep(1000);
 
-            while(pitch < goalPitch && opModeIsActive()){
+            int timer = 0;
+
+            while (pitch < goalPitch && opModeIsActive() && timer < 51) {
                 angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                pitch =  angles.thirdAngle;
+                pitch = angles.thirdAngle;
+                sleep(50);
+                timer++;
             }
 
             sleep(300);
@@ -135,7 +144,7 @@ public class IronAutonomous_BETA extends LinearOpMode
             robot.leftDrive.setPower(0.5);
             robot.rightDrive.setPower(-0.5);
 
-            while (heading > goalHeading && opModeIsActive()){
+            while (heading > goalHeading && opModeIsActive()) {
                 angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 heading = angles.firstAngle;
             }
@@ -143,15 +152,10 @@ public class IronAutonomous_BETA extends LinearOpMode
             robot.leftDrive.setPower(0);
             robot.rightDrive.setPower(0);
 
-            robot.boxWinch.setPower(-0.6);
-
-            sleep(200);
-
-            robot.boxWinch.setPower(0);
 
             robot.rightDrive.setPower(0.4);
             robot.leftDrive.setPower(0.4);
-            robot.Box.setPower(-1);
+
 
             sleep(1500);
 
@@ -165,26 +169,50 @@ public class IronAutonomous_BETA extends LinearOpMode
             robot.rightDrive.setPower(1);
             robot.leftDrive.setPower(1);
 
-            sleep(100);
-
-            robot.rightDrive.setPower(0);
-            robot.leftDrive.setPower(0);
-
-            sleep(200);
-
-            robot.leftDrive.setPower(0.5);
-            robot.rightDrive.setPower(-0.5);
-
-            sleep(2000);
+            if (center) {
+                sleep(550);
+            }if (right) {
+                sleep(250);
+            }else{
+                sleep(300);
+            }
 
 
-            robot.leftDrive.setPower(0);
-            robot.rightDrive.setPower(0);
+                robot.rightDrive.setPower(0);
+                robot.leftDrive.setPower(0);
 
-            robot.release.setPosition(1);
 
-            break;
+                sleep(800);
+
+                robot.boxWinch.setPower(0);
+
+                if (left) {
+                    robot.leftDrive.setPower(-0.5);
+                    robot.rightDrive.setPower(0.5);
+                } else {
+                    robot.leftDrive.setPower(0.5);
+                    robot.rightDrive.setPower(-0.5);
+                }
+
+
+                if (right) {
+                    sleep(1800);
+                } else if (center) {
+                    sleep(2000);
+                } else if (left) {
+                    sleep(1800);
+                }
+
+
+                robot.leftDrive.setPower(0);
+                robot.rightDrive.setPower(0);
+
+                robot.release.setPosition(1);
+
+                sleep(2000);
+
+                break;
+            }
+
         }
-
-    }
 }

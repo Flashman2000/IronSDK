@@ -43,7 +43,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 
-//import static org.firstinspires.ftc.teamcode.Ironclad.IronAutonomous_BETA.COUNTS_PER_INCH;
+//import static org.firstinspires.ftc.teamcode.Ironclad.AutoHomeBase.COUNTS_PER_INCH;
 
 public class RobotConfigs extends VarRepo{
 
@@ -188,13 +188,7 @@ public class RobotConfigs extends VarRepo{
     public void initTele(HardwareMap hwm, Telemetry tel){
 
 
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-        parameters.loggingEnabled      = true;
-        parameters.loggingTag          = "IMU";
-        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
 
         leftDrive = hwm.get(DcMotor.class, "leftDrive");
         rightDrive = hwm.get(DcMotor.class, "rightDrive");
@@ -204,9 +198,6 @@ public class RobotConfigs extends VarRepo{
         boxWinch = hwm.get(DcMotor.class, "winch");
         Box = hwm.get(CRServo.class, "bx");
         release = hwm.get(Servo.class, "release");
-        imu = hwm.get(BNO055IMU.class, "imu");
-
-        imu.initialize(parameters);
 
         leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -250,33 +241,27 @@ public class RobotConfigs extends VarRepo{
         left = -gp1.left_stick_y;
         right = -gp1.right_stick_y;
         lin = gp1.right_trigger - gp1.left_trigger;
-        winch = (-gp2.left_stick_y)/3;
+        winch = (-gp2.right_stick_y)/3;
 
-        if(gp1.x){
-            serv = 1;
-        }else if(gp1.b){
-            serv = -1;
-        }else if(gp1.y){
-            serv = 0;
-        }
+        serv = gp2.right_trigger - gp2.left_trigger;
 
-        if(gp2.a){
-            release.setPosition(1);
-        }else if(gp2.b){
+        if(gp1.a){
             release.setPosition(0);
+        }else if(gp1.b){
+            release.setPosition(1);
         }
 
-        if(gp2.dpad_right){
+        if(gp2.dpad_up){
             horz = 1;
-        }else if(gp2.dpad_left){
+        }else if(gp2.dpad_down){
             horz = -1;
         }else{
             horz = 0;
         }
 
-        if(gp2.dpad_up){
+        if(gp1.dpad_up){
             vert = 1;
-        }else if(gp2.dpad_down){
+        }else if(gp1.dpad_down){
             vert = -1;
         }else{
             vert = 0;
