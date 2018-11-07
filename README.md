@@ -15,3 +15,6 @@
 ### Version 0.5.1 (10/27/2018)
 - Beginning of development for competition-level autonomous
 - Tele-op is completely done with technical development
+
+### Version 0.6.0 (11/7/2018)
+- Updated to ftc-app version 4.3
