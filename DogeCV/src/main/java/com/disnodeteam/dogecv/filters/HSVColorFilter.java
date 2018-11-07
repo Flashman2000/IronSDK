@@ -7,7 +7,7 @@ import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 /**
- * Created by Victo on 1/1/2018
+ * Created by Victo on 1/1/2018.
  */
 
 public class HSVColorFilter extends DogeCVColorFilter{

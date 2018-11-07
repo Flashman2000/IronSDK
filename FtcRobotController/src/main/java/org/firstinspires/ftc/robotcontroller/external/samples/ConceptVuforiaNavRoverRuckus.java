@@ -32,10 +32,6 @@ package org.firstinspires.ftc.robotcontroller.external.samples;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
@@ -73,6 +69,7 @@ import java.util.List;
  *
  * From the Audience perspective, the Red Alliance station is on the right and the
  * Blue Alliance Station is on the left.
+
  * The four vision targets are located in the center of each of the perimeter walls with
  * the images facing inwards towards the robots:
  *     - BlueRover is the Mars Rover image target on the wall closest to the blue alliance
@@ -94,7 +91,7 @@ import java.util.List;
  * is explained below.
  */
 
-@TeleOp(name="Concept: Vuforia Rover Nav1", group ="Concept")
+@TeleOp(name="Concept: Vuforia Rover Nav", group ="Concept")
 @Disabled
 public class ConceptVuforiaNavRoverRuckus extends LinearOpMode {
 
@@ -110,7 +107,7 @@ public class ConceptVuforiaNavRoverRuckus extends LinearOpMode {
      * Once you've obtained a license key, copy the string from the Vuforia web site
      * and paste it in to your code on the next line, between the double quotes.
      */
-    private static final String VUFORIA_KEY = "AXFONin/////AAABmayDUtVXn0Bhvv0hPyaY2jmLTFDMamEDWBsCsSfBcpTAux5UJMnqw+AQTu2v3iXNecRwrvVC/7PYCoUW5bKFoV8VUPjhKugutdYe4Vtp51axjRFrDmzLh4zuCok1++sNkcFt8Cy5+P/YvLK2zd4sn7bQqsLGu+VMIm/67SzANDtNHS3JJirsodhV5D/EQIdR+35YNg4oGwZrKm0NrjUnDTeF+VDxD3YxFXtzvlDEP3XwkCsHjQi/CQOkVWDZd6hmOVjH0/iWaSy0PFceEv/2cb+gIP4Ke7d46vDM7jwfgzaBBpuZC2e2oBDrwpyZaWeHmLW67M6pzyFWXYJ2osJ36BjtVpfkYlKyUjAR2Wxaz0Ih";
+    private static final String VUFORIA_KEY = " -- YOUR NEW VUFORIA KEY GOES HERE  --- ";
 
     // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
     // We will define some constants and conversions here
@@ -131,28 +128,7 @@ public class ConceptVuforiaNavRoverRuckus extends LinearOpMode {
      */
     VuforiaLocalizer vuforia;
 
-    public DcMotor leftDrive = null;
-    public DcMotor rightDrive = null;
-
-    HardwareMap hwm = null;
-    private ElapsedTime period = new ElapsedTime();
-
     @Override public void runOpMode() {
-
-        leftDrive = hardwareMap.get(DcMotor.class, "leftDrive");
-        rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");
-
-        leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
-
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
-
-        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          * We can pass Vuforia the handle to a camera preview resource (on the RC phone);
@@ -274,7 +250,7 @@ public class ConceptVuforiaNavRoverRuckus extends LinearOpMode {
          * In this example, it is centered (left to right), but 110 mm forward of the middle of the robot, and 200 mm above ground level.
          */
 
-        final int CAMERA_FORWARD_DISPLACEMENT  = 0;   // eg: Camera is 110 mm in front of robot center
+        final int CAMERA_FORWARD_DISPLACEMENT  = 110;   // eg: Camera is 110 mm in front of robot center
         final int CAMERA_VERTICAL_DISPLACEMENT = 200;   // eg: Camera is 200 mm above ground
         final int CAMERA_LEFT_DISPLACEMENT     = 0;     // eg: Camera is ON the robot's center line
 
@@ -297,15 +273,6 @@ public class ConceptVuforiaNavRoverRuckus extends LinearOpMode {
         /** Start tracking the data sets we care about. */
         targetsRoverRuckus.activate();
         while (opModeIsActive()) {
-
-            double right;
-            double left;
-
-            right = -gamepad1.right_stick_y;
-            left = -gamepad1.left_stick_y;
-
-            rightDrive.setPower(right);
-            leftDrive.setPower(left);
 
             // check all the trackable target to see which one (if any) is visible.
             targetVisible = false;
