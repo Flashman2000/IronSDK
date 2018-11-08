@@ -284,7 +284,7 @@ public class RobotConfigs extends VarRepo{
 
         leftDrive.setPower(left);
         rightDrive.setPower(right);
-        horzSlide.setPower(horz);
+        horzSlide.setPower(0);
         vertSlide.setPower(vert);
         linActuator.setPower(lin);
         boxWinch.setPower(winch);
