@@ -18,9 +18,3 @@
 
 ### Version 0.6.0 (11/7/2018)
 - Updated to ftc-app version 4.3
-
-### Version 1.0.0 (11/7/2018)
-- Our first competition ready release!
-  - Autonomous is competition ready
-  - Remote Control is competition ready
-    - Horizontal x-rails are disabled in code due to hardware difficulties that render them unusable
