@@ -250,15 +250,9 @@ public class RobotConfigs extends VarRepo{
         left = -gp1.left_stick_y;
         right = -gp1.right_stick_y;
         lin = gp1.right_trigger - gp1.left_trigger;
-        winch = (-gp2.left_stick_y)/3;
+        winch = (-gp2.right_stick_y)/2;
 
-        if(gp1.x){
-            serv = 1;
-        }else if(gp1.b){
-            serv = -1;
-        }else if(gp1.y){
-            serv = 0;
-        }
+        serv = gp2.right_trigger - gp2.left_trigger;
 
         if(gp2.a){
             release.setPosition(1);
@@ -274,14 +268,22 @@ public class RobotConfigs extends VarRepo{
             horz = 0;
         }
 
-        if(gp2.dpad_up){
+        if(gp1.dpad_up){
             vert = 1;
-        }else if(gp2.dpad_down){
+        }else if(gp1.dpad_down){
             vert = -1;
         }else{
             vert = 0;
         }
 
+        if(gp1.b){
+
+            release.setPosition(1);
+
+        }else if(gp1.a){
+            release.setPosition(0.2);
+
+        }
         leftDrive.setPower(left);
         rightDrive.setPower(right);
         horzSlide.setPower(0);
