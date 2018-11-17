@@ -246,7 +246,7 @@ public class RobotConfigs extends VarRepo{
         serv = gp2.right_trigger - gp2.left_trigger;
 
         if(gp1.a){
-            release.setPosition(0);
+            release.setPosition(0.2);
         }else if(gp1.b){
             release.setPosition(1);
         }
@@ -269,7 +269,7 @@ public class RobotConfigs extends VarRepo{
 
         leftDrive.setPower(left);
         rightDrive.setPower(right);
-        horzSlide.setPower(horz);
+        horzSlide.setPower(0);
         vertSlide.setPower(vert);
         linActuator.setPower(lin);
         boxWinch.setPower(winch);
