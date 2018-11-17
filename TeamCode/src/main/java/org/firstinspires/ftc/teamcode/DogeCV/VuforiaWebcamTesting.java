@@ -29,7 +29,6 @@
 
 package org.firstinspires.ftc.teamcode.DogeCV;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -54,7 +53,7 @@ import org.firstinspires.ftc.teamcode.Ironclad.RobotConfigs;
  */
 
 @TeleOp(name="Vuforia Webcam Testing", group="DogeCV")
-@Disabled
+
 public class VuforiaWebcamTesting extends LinearOpMode
 {
 
