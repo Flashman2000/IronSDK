@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 /**
@@ -125,20 +126,11 @@ public class AutoHomeBase extends LinearOpMode
 
             sleep(2000);
 
+
             robot.linActuator.setPower(1);
 
-            sleep(1000);
+            while(robot.touchSensor.getState()){}
 
-            int timer = 0;
-
-            while (pitch < goalPitch && opModeIsActive() && timer < 51) {
-                angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                pitch = angles.thirdAngle;
-                sleep(50);
-                timer++;
-            }
-
-            sleep(300);
             robot.linActuator.setPower(0);
 
             robot.leftDrive.setPower(0.5);
@@ -198,7 +190,7 @@ public class AutoHomeBase extends LinearOpMode
                 if (right) {
                     sleep(1800);
                 } else if (center) {
-                    sleep(2000);
+                    sleep(3000);
                 } else if (left) {
                     sleep(1800);
                 }
@@ -207,11 +199,48 @@ public class AutoHomeBase extends LinearOpMode
                 robot.leftDrive.setPower(0);
                 robot.rightDrive.setPower(0);
 
+                sleep(200);
+
+                if(left || right){
+                    robot.leftDrive.setPower(-1);
+                    robot.rightDrive.setPower(-1);
+
+                    sleep(1000);
+
+                    robot.leftDrive.setPower(0);
+                    robot.rightDrive.setPower(0);
+                }
+
                 robot.release.setPosition(1);
 
                 sleep(2000);
 
+                robot.release.setPosition(0);
+                robot.rightDrive.setPower(-0.35);
+                robot.leftDrive.setPower(0.35);
+
+                sleep(820);
+
+                robot.rightDrive.setPower(0.6);
+                robot.leftDrive.setPower(0.6);
+
+                while(robot.rangeBack.getDistance(DistanceUnit.MM) < 2000){}
+
+                while (robot.rangeFront.getDistance((DistanceUnit.MM)) > 1150){}
+
+                robot.leftDrive.setPower(0);
+                robot.rightDrive.setPower(0);
+
+                robot.leftDrive.setPower(0);
+                robot.rightDrive.setPower(0.75);
+
+                sleep(300);
+
+                robot.leftDrive.setPower(0);
+                robot.leftDrive.setPower(0);
+
                 break;
+
             }
 
         }

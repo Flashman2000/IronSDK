@@ -6,10 +6,15 @@ import com.disnodeteam.dogecv.Dogeforia;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsTouchSensor;
+import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
+import com.qualcomm.hardware.rev.RevTouchSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -24,6 +29,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
@@ -69,6 +75,12 @@ public class RobotConfigs extends VarRepo{
         release = hwm.get(Servo.class, "release");
         imu = hwm.get(BNO055IMU.class, "imu");
         webcamName = hwm.get(WebcamName.class, "Webcam 1");
+        touchSensor = hwm.get(DigitalChannel.class, "touch");
+        rangeBack = hwm.get(DistanceSensor.class, "rback");
+        rangeFront = hwm.get(DistanceSensor.class, "rfront");
+
+        Rev2mDistanceSensor disFront = (Rev2mDistanceSensor) rangeFront;
+        Rev2mDistanceSensor disBack = (Rev2mDistanceSensor) rangeBack;
 
         imu.initialize(parameters);
 
@@ -77,6 +89,7 @@ public class RobotConfigs extends VarRepo{
         horzSlide.setDirection(DcMotorSimple.Direction.FORWARD);
         vertSlide.setDirection(DcMotorSimple.Direction.FORWARD);
         linActuator.setDirection(DcMotorSimple.Direction.FORWARD);
+        touchSensor.setMode(DigitalChannel.Mode.INPUT);
 
         leftDrive.setPower(0);
         rightDrive.setPower(0);
@@ -198,12 +211,20 @@ public class RobotConfigs extends VarRepo{
         boxWinch = hwm.get(DcMotor.class, "winch");
         Box = hwm.get(CRServo.class, "bx");
         release = hwm.get(Servo.class, "release");
+        touchSensor = hwm.get(DigitalChannel.class, "touch");
+        rangeBack = hwm.get(DistanceSensor.class, "rback");
+        rangeFront = hwm.get(DistanceSensor.class, "rfront");
+
+        Rev2mDistanceSensor disFront = (Rev2mDistanceSensor) rangeFront;
+        Rev2mDistanceSensor disBack = (Rev2mDistanceSensor) rangeBack;
 
         leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
         horzSlide.setDirection(DcMotorSimple.Direction.FORWARD);
         vertSlide.setDirection(DcMotorSimple.Direction.FORWARD);
         linActuator.setDirection(DcMotorSimple.Direction.FORWARD);
+        touchSensor.setMode(DigitalChannel.Mode.INPUT);
+
 
 
 
@@ -241,7 +262,7 @@ public class RobotConfigs extends VarRepo{
         left = -gp1.left_stick_y;
         right = -gp1.right_stick_y;
         lin = gp1.right_trigger - gp1.left_trigger;
-        winch = (-gp2.right_stick_y)/3;
+        winch = (-gp2.right_stick_y)/1.7;
 
         serv = gp2.right_trigger - gp2.left_trigger;
 
@@ -249,6 +270,21 @@ public class RobotConfigs extends VarRepo{
             release.setPosition(0.2);
         }else if(gp1.b){
             release.setPosition(1);
+        }
+
+        if(gp1.y){
+
+            linActuator.setPower(1);
+
+            while(touchSensor.getState()){
+
+                if(!touchSensor.getState()){
+                    break;
+                }
+            }
+
+            linActuator.setPower(0);
+
         }
 
         if(gp2.dpad_up){
@@ -269,11 +305,16 @@ public class RobotConfigs extends VarRepo{
 
         leftDrive.setPower(left);
         rightDrive.setPower(right);
-        horzSlide.setPower(0);
+        horzSlide.setPower(horz);
         vertSlide.setPower(vert);
         linActuator.setPower(lin);
         boxWinch.setPower(winch);
         Box.setPower(serv);
+        tel.addData("Pressed", touchSensor.getState());
+        tel.addData("Front Distance", rangeFront.getDistance(DistanceUnit.MM));
+        tel.addData("Back Distance", rangeBack.getDistance(DistanceUnit.MM));
+        tel.update();
+
 
     }
 

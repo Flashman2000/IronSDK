@@ -3,8 +3,12 @@ package org.firstinspires.ftc.teamcode.Ironclad;
 import com.disnodeteam.dogecv.Dogeforia;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsTouchSensor;
+import com.qualcomm.hardware.rev.RevTouchSensor;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -38,8 +42,11 @@ public class VarRepo {
     public DcMotor boxWinch = null;
     public Servo release = null;
     public CRServo Box = null;
+    public DigitalChannel touchSensor = null;
     public BNO055IMU imu;
     public WebcamName webcamName;
+    public DistanceSensor rangeBack = null;
+    public DistanceSensor rangeFront = null;
 
     //Computer Vision
     public GoldAlignDetector detector = new GoldAlignDetector();
