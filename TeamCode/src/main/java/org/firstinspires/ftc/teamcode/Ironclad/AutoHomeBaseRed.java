@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode.Ironclad;
 
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -53,8 +54,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Home Base")
-public class AutoHomeBase extends LinearOpMode
+@Autonomous(name="Home Base Red")
+public class AutoHomeBaseRed extends LinearOpMode
 {
 
     RobotConfigs robot = new RobotConfigs();
@@ -129,9 +130,18 @@ public class AutoHomeBase extends LinearOpMode
 
             robot.linActuator.setPower(1);
 
+            robot.pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE;
+            robot.blinkinLedDriver.setPattern(robot.pattern);
+
+            //robot.pattern = RevBlinkinLedDriver.BlinkinPattern.LIGHT_CHASE_BLUE;
+            //robot.blinkinLedDriver.setPattern(robot.pattern);
+
             while(robot.touchSensor.getState()){}
 
             robot.linActuator.setPower(0);
+
+            robot.pattern = RevBlinkinLedDriver.BlinkinPattern.COLOR_WAVES_LAVA_PALETTE;
+            robot.blinkinLedDriver.setPattern(robot.pattern);
 
             robot.leftDrive.setPower(0.5);
             robot.rightDrive.setPower(-0.5);
@@ -190,7 +200,7 @@ public class AutoHomeBase extends LinearOpMode
                 if (right) {
                     sleep(1800);
                 } else if (center) {
-                    sleep(3000);
+                    sleep(2600);
                 } else if (left) {
                     sleep(1800);
                 }
@@ -211,11 +221,23 @@ public class AutoHomeBase extends LinearOpMode
                     robot.rightDrive.setPower(0);
                 }
 
-                robot.release.setPosition(1);
+                if(left){
+                    robot.rightDrive.setPower(1);
+                    robot.leftDrive.setPower(-1);
+                    sleep(250);
+                    robot.leftDrive.setPower(0);
+                    robot.rightDrive.setPower(0);
+                }
+
+                robot.release.setPosition(1)
+                ;
 
                 sleep(2000);
 
                 robot.release.setPosition(0);
+
+
+                /*
                 robot.rightDrive.setPower(-0.35);
                 robot.leftDrive.setPower(0.35);
 
@@ -238,6 +260,7 @@ public class AutoHomeBase extends LinearOpMode
 
                 robot.leftDrive.setPower(0);
                 robot.leftDrive.setPower(0);
+                */
 
                 break;
 

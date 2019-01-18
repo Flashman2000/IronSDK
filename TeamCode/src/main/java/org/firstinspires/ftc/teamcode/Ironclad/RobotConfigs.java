@@ -8,6 +8,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsTouchSensor;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.hardware.rev.RevTouchSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -78,6 +79,8 @@ public class RobotConfigs extends VarRepo{
         touchSensor = hwm.get(DigitalChannel.class, "touch");
         rangeBack = hwm.get(DistanceSensor.class, "rback");
         rangeFront = hwm.get(DistanceSensor.class, "rfront");
+        blinkinLedDriver = hwm.get(RevBlinkinLedDriver.class, "blinkin");
+
 
         Rev2mDistanceSensor disFront = (Rev2mDistanceSensor) rangeFront;
         Rev2mDistanceSensor disBack = (Rev2mDistanceSensor) rangeBack;
@@ -214,6 +217,10 @@ public class RobotConfigs extends VarRepo{
         touchSensor = hwm.get(DigitalChannel.class, "touch");
         rangeBack = hwm.get(DistanceSensor.class, "rback");
         rangeFront = hwm.get(DistanceSensor.class, "rfront");
+
+        blinkinLedDriver = hwm.get(RevBlinkinLedDriver.class, "blinkin");
+        pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE;
+        blinkinLedDriver.setPattern(pattern);
 
         Rev2mDistanceSensor disFront = (Rev2mDistanceSensor) rangeFront;
         Rev2mDistanceSensor disBack = (Rev2mDistanceSensor) rangeBack;

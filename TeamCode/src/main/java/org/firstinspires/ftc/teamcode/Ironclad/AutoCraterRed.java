@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Ironclad;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -8,8 +9,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-@Autonomous(name = "Crater")
-public class AutoCrater extends LinearOpMode {
+@Autonomous(name = "Crater Red")
+public class AutoCraterRed extends LinearOpMode {
 
     RobotConfigs robot = new RobotConfigs();
     RobotMovements roboAction = new RobotMovements();
@@ -82,19 +83,18 @@ public class AutoCrater extends LinearOpMode {
 
             robot.linActuator.setPower(1);
 
-            sleep(1000);
+            robot.pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE;
+            robot.blinkinLedDriver.setPattern(robot.pattern);
 
-            int timer = 0;
+            //robot.pattern = RevBlinkinLedDriver.BlinkinPattern.LIGHT_CHASE_BLUE;
+            //robot.blinkinLedDriver.setPattern(robot.pattern);
 
-            while (pitch < goalPitch && opModeIsActive() && timer < 51) {
-                angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                pitch = angles.thirdAngle;
-                sleep(50);
-                timer++;
-            }
+            while(robot.touchSensor.getState()){}
 
-            sleep(300);
             robot.linActuator.setPower(0);
+
+            robot.pattern = RevBlinkinLedDriver.BlinkinPattern.COLOR_WAVES_LAVA_PALETTE;
+            robot.blinkinLedDriver.setPattern(robot.pattern);
 
             robot.leftDrive.setPower(0.5);
             robot.rightDrive.setPower(-0.5);
