@@ -81,7 +81,7 @@ public class AutoCraterBlue extends LinearOpMode {
 
             sleep(2000);
 
-            robot.linActuator.setPower(1);
+            robot.linActuator.setPower(0.8);
 
             robot.pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE;
             robot.blinkinLedDriver.setPattern(robot.pattern);
@@ -92,9 +92,6 @@ public class AutoCraterBlue extends LinearOpMode {
             while(robot.touchSensor.getState()){}
 
             robot.linActuator.setPower(0);
-
-            robot.pattern = RevBlinkinLedDriver.BlinkinPattern.COLOR_WAVES_OCEAN_PALETTE;
-            robot.blinkinLedDriver.setPattern(robot.pattern);
 
             robot.leftDrive.setPower(0.5);
             robot.rightDrive.setPower(-0.5);

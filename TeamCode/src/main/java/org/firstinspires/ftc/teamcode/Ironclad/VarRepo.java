@@ -74,6 +74,7 @@ public class VarRepo {
     public double serv = 0;
     public Orientation angles;
     public Acceleration gravity;
+    public ElapsedTime telert = new ElapsedTime();
 
     public RevBlinkinLedDriver blinkinLedDriver;
     public RevBlinkinLedDriver.BlinkinPattern pattern;

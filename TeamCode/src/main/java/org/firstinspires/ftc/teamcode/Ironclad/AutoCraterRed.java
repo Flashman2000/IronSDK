@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Ironclad;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -81,20 +82,18 @@ public class AutoCraterRed extends LinearOpMode {
 
             sleep(2000);
 
-            robot.linActuator.setPower(1);
+            robot.linActuator.setTargetPosition(-3170);
+            robot.linActuator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.linActuator.setPower(-0.8);
 
-            robot.pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE;
-            robot.blinkinLedDriver.setPattern(robot.pattern);
+            while(robot.linActuator.isBusy()){
+                telemetry.addData("enc", robot.linActuator.getCurrentPosition());
+                telemetry.update();
 
-            //robot.pattern = RevBlinkinLedDriver.BlinkinPattern.LIGHT_CHASE_BLUE;
-            //robot.blinkinLedDriver.setPattern(robot.pattern);
+            }
 
-            while(robot.touchSensor.getState()){}
-
+            robot.linActuator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.linActuator.setPower(0);
-
-            robot.pattern = RevBlinkinLedDriver.BlinkinPattern.COLOR_WAVES_LAVA_PALETTE;
-            robot.blinkinLedDriver.setPattern(robot.pattern);
 
             robot.leftDrive.setPower(0.5);
             robot.rightDrive.setPower(-0.5);
