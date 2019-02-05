@@ -54,8 +54,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Home Base Blue")
-public class AutoHomeBaseBlue extends LinearOpMode
+@Autonomous(name="Home Base")
+public class AutoHomeBase extends LinearOpMode
 {
 
     RobotConfigs robot = new RobotConfigs();
@@ -177,61 +177,61 @@ public class AutoHomeBaseBlue extends LinearOpMode
             }
 
 
-            robot.rightDrive.setPower(0);
-            robot.leftDrive.setPower(0);
+                robot.rightDrive.setPower(0);
+                robot.leftDrive.setPower(0);
 
 
-            sleep(800);
+                sleep(800);
 
-            robot.boxWinch.setPower(0);
+                robot.boxWinch.setPower(0);
 
-            if (left) {
-                robot.leftDrive.setPower(-0.5);
-                robot.rightDrive.setPower(0.5);
-            } else {
-                robot.leftDrive.setPower(0.5);
-                robot.rightDrive.setPower(-0.5);
-            }
-
-
-            if (right) {
-                sleep(1800);
-            } else if (center) {
-                sleep(2600);
-            } else if (left) {
-                sleep(1800);
-            }
+                if (left) {
+                    robot.leftDrive.setPower(-0.5);
+                    robot.rightDrive.setPower(0.5);
+                } else {
+                    robot.leftDrive.setPower(0.5);
+                    robot.rightDrive.setPower(-0.5);
+                }
 
 
-            robot.leftDrive.setPower(0);
-            robot.rightDrive.setPower(0);
+                if (right) {
+                    sleep(1800);
+                } else if (center) {
+                    sleep(2600);
+                } else if (left) {
+                    sleep(1800);
+                }
 
-            sleep(200);
-
-            if(left || right){
-                robot.leftDrive.setPower(-1);
-                robot.rightDrive.setPower(-1);
-
-                sleep(1000);
 
                 robot.leftDrive.setPower(0);
                 robot.rightDrive.setPower(0);
-            }
 
-            if(left){
-                robot.rightDrive.setPower(1);
-                robot.leftDrive.setPower(-1);
-                sleep(250);
-                robot.leftDrive.setPower(0);
-                robot.rightDrive.setPower(0);
-            }
+                sleep(200);
 
-            robot.release.setPosition(1)
-            ;
+                if(left || right){
+                    robot.leftDrive.setPower(-1);
+                    robot.rightDrive.setPower(-1);
 
-            sleep(2000);
+                    sleep(1000);
 
-            robot.release.setPosition(0);
+                    robot.leftDrive.setPower(0);
+                    robot.rightDrive.setPower(0);
+                }
+
+                if(left){
+                    robot.rightDrive.setPower(1);
+                    robot.leftDrive.setPower(-1);
+                    sleep(250);
+                    robot.leftDrive.setPower(0);
+                    robot.rightDrive.setPower(0);
+                }
+
+                robot.release.setPosition(1)
+                ;
+
+                sleep(2000);
+
+                robot.release.setPosition(0);
 
 
                 /*
@@ -259,9 +259,9 @@ public class AutoHomeBaseBlue extends LinearOpMode
                 robot.leftDrive.setPower(0);
                 */
 
-            break;
+                break;
+
+            }
 
         }
-
-    }
 }
