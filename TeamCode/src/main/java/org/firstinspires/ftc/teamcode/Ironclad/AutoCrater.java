@@ -4,13 +4,14 @@ import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-@Autonomous(name = "Crater")
+@Autonomous(name = "Crater1")
 public class AutoCrater extends LinearOpMode {
 
     RobotConfigs robot = new RobotConfigs();
@@ -27,6 +28,8 @@ public class AutoCrater extends LinearOpMode {
     boolean aligned;
     double pos;
     int count = 0;
+
+    private ElapsedTime time  = new ElapsedTime();
 
     @Override
     public void runOpMode() {
@@ -82,21 +85,15 @@ public class AutoCrater extends LinearOpMode {
 
             sleep(2000);
 
-            robot.linActuator.setTargetPosition(-3170);
-            robot.linActuator.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.linActuator.setPower(-0.8);
+            robot.linActuator.setPower(-1);
 
-            while(robot.linActuator.isBusy()){
-                telemetry.addData("enc", robot.linActuator.getCurrentPosition());
-                telemetry.update();
+            sleep(3200);
 
-            }
-
-            robot.linActuator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //robot.linActuator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.linActuator.setPower(0);
 
-            robot.leftDrive.setPower(0.5);
-            robot.rightDrive.setPower(-0.5);
+            robot.leftDrive.setPower(0.4);
+            robot.rightDrive.setPower(-0.4);
 
             while (heading > goalHeading && opModeIsActive()) {
                 angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -113,6 +110,204 @@ public class AutoCrater extends LinearOpMode {
 
             sleep(1800);
 
+            robot.rightDrive.setPower(0);
+            robot.leftDrive.setPower(0);
+
+            int tar = 0;
+
+            if(left){
+
+                tar = 250;
+
+            }
+
+            robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            sleep(100);
+            robot.rightDrive.setTargetPosition(-950-tar);
+            robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            robot.rightDrive.setPower(-0.8);
+            robot.leftDrive.setPower(-0.8);
+
+            while ((robot.rightDrive.isBusy())){
+
+            }
+
+            robot.rightDrive.setPower(0);
+            robot.leftDrive.setPower(0);
+
+            robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            sleep(500);
+
+            robot.leftDrive.setPower(1);
+            robot.rightDrive.setPower(-1);
+
+            while (heading > -160 && opModeIsActive()) {
+                angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                heading = angles.firstAngle;
+            }
+
+            robot.leftDrive.setPower(0);
+            robot.rightDrive.setPower(0);
+
+            int tar1 = 0;
+
+            if (left){
+
+                tar1 = 925;
+
+            }
+            robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            sleep(100);
+            robot.rightDrive.setTargetPosition(-4600+tar1);
+            robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            robot.rightDrive.setPower(-1);
+            robot.leftDrive.setPower(-1);
+
+            while ((robot.rightDrive.isBusy())){
+
+            }
+
+            robot.rightDrive.setPower(0);
+            robot.leftDrive.setPower(0);
+
+            robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            sleep(500);
+
+            robot.leftDrive.setPower(-1);
+            robot.rightDrive.setPower(0);
+
+            while (heading < -145 && opModeIsActive()) {
+                angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                heading = angles.firstAngle;
+            }
+
+            robot.leftDrive.setPower(0);
+            robot.rightDrive.setPower(0);
+
+            robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            sleep(100);
+            robot.rightDrive.setTargetPosition(-3000);
+            robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            robot.rightDrive.setPower(-0.5);
+            robot.leftDrive.setPower(-0.5);
+
+            while ((robot.rightDrive.isBusy())){
+
+            }
+
+            robot.leftDrive.setPower(0);
+            robot.release.setPosition(1);
+
+            robot.rightDrive.setTargetPosition(robot.rightDrive.getCurrentPosition());
+
+            //robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            robot.leftDrive.setPower(0);
+            robot.rightDrive.setPower(0);
+
+            robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            sleep(700);
+
+            if(center){
+
+                robot.leftDrive.setPower(0.5);
+                robot.rightDrive.setPower(-0.5);
+
+                while (heading > -180 && opModeIsActive()) {
+                    angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    heading = angles.firstAngle;
+
+                    if(heading > 0){
+                        break;
+                    }
+                }
+
+                while(heading < 25 && opModeIsActive()){
+
+                    angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                    heading = angles.firstAngle;
+
+                }
+
+                robot.leftDrive.setPower(0);
+                robot.rightDrive.setPower(0);
+
+            }else{
+                if (right) {
+
+                    robot.leftDrive.setPower(0.5);
+                    robot.rightDrive.setPower(-0.5);
+
+                    while (heading > -180 && opModeIsActive()) {
+                        angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                        heading = angles.firstAngle;
+
+                        if (heading > 0) {
+                            break;
+                        }
+                    }
+                    robot.leftDrive.setPower(0);
+                    robot.rightDrive.setPower(0);
+
+                }else{
+
+                    telemetry.addLine("Left");
+                    telemetry.update();
+
+                    robot.leftDrive.setPower(0.5);
+                    robot.rightDrive.setPower(-0.5);
+
+                    while (heading > -180 && opModeIsActive()) {
+                        angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                        heading = angles.firstAngle;
+
+                        if (heading > 0) {
+
+
+                            break;
+                        }
+                    }
+                }
+            }
+
+            robot.leftDrive.setPower(0);
+            robot.rightDrive.setPower(0);
+
+            if(left){
+
+                robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.rightDrive.setTargetPosition(-400);
+                robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                robot.rightDrive.setPower(-0.5);
+                robot.leftDrive.setPower(0.5);
+
+                while (robot.rightDrive.isBusy()){}
+
+                robot.leftDrive.setPower(0);
+                robot.rightDrive.setPower(0);
+
+                robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            }
+
+
+            sleep(200);
+
+            robot.rightDrive.setPower(1);
+            robot.leftDrive.setPower(1);
+            sleep(1000);
+            robot.rightDrive.setPower(0);
+            robot.leftDrive.setPower(0);
+            sleep(250);
+            robot.rightDrive.setPower(-1);
+            robot.leftDrive.setPower(-1);
+            sleep(1000);
             robot.rightDrive.setPower(0);
             robot.leftDrive.setPower(0);
 

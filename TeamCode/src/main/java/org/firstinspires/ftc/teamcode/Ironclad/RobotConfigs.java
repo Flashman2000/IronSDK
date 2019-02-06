@@ -104,7 +104,7 @@ public class RobotConfigs extends VarRepo{
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         horzSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         vertSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        linActuator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        linActuator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -113,7 +113,7 @@ public class RobotConfigs extends VarRepo{
         linActuator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         composetelemetry(tel);
-        tel.addLine("1");
+        tel.addLine("Warming Up");
         tel.update();
 
         webcamName = hwm.get(WebcamName.class, "Webcam 1");
@@ -123,7 +123,7 @@ public class RobotConfigs extends VarRepo{
 
         int cameraMonitorViewId = hwm.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwm.appContext.getPackageName());
         VuforiaLocalizer.Parameters params = new VuforiaLocalizer.Parameters();
-        tel.addLine("2");
+        tel.addLine("Almost There...");
         tel.update();
 
         params.vuforiaLicenseKey = "AWbfTmn/////AAABmY0xuIe3C0RHvL3XuzRxyEmOT2OekXBSbqN2jot1si3OGBObwWadfitJR/D6Vk8VEBiW0HG2Q8UAEd0//OliF9aWCRmyDJ1mMqKCJZxpZemfT5ELFuWnJIZWUkKyjQfDNe2RIaAh0ermSxF4Bq77IDFirgggdYJoRIyi2Ys7Gl9lD/tSonV8OnldIN/Ove4/MtEBJTKHqjUEjC5U2khV+26AqkeqbxhFTNiIMl0LcmSSfugGhmWFGFtuPtp/+flPBRGoBO+tSl9P2sV4mSUBE/WrpHqB0Jd/tAmeNvbtgQXtZEGYc/9NszwRLVNl9k13vrBcgsiNxs2UY5xAvA4Wb6LN7Yu+tChwc+qBiVKAQe09\n";
@@ -195,7 +195,7 @@ public class RobotConfigs extends VarRepo{
         vuforia.enableDogeCV();
         vuforia.showDebug();
         vuforia.start();
-        tel.addLine("GO NIGGA");
+        tel.addLine("Roll out nibbas");
         tel.update();
 
 
@@ -227,9 +227,11 @@ public class RobotConfigs extends VarRepo{
 
         vertSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         linActuator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         linActuator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         vertSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -248,7 +250,7 @@ public class RobotConfigs extends VarRepo{
         linActuator.setPower(0);
 
         leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         horzSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //vertSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         //linActuator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -512,20 +514,6 @@ public class RobotConfigs extends VarRepo{
                         release.setPosition(1);
                     }
 
-                    if(gp1.y){
-
-                        linActuator.setPower(1);
-
-                        while(touchSensor.getState()){
-
-                            if(!touchSensor.getState()){
-                                break;
-                            }
-                        }
-
-                        linActuator.setPower(0);
-
-                    }
 
                     if(gp2.dpad_up){
                         horz = 1;
@@ -628,8 +616,9 @@ public class RobotConfigs extends VarRepo{
             tel.addData("Pressed", touchSensor.getState());
             tel.addData("Front Distance", rangeFront.getDistance(DistanceUnit.INCH));
             tel.addData("Back Distance", rangeBack.getDistance(DistanceUnit.INCH));
-            tel.addData("Vert Encoder Val", vertSlide.getCurrentPosition());
-            tel.addData("Actuator Encoder Val", linActuator.getCurrentPosition());
+            tel.addData("Vert Encoder Va", vertSlide.getCurrentPosition());
+            tel.addData("Actuator Encoder Va", linActuator.getCurrentPosition());
+            tel.addData("Drive Encoder Val", rightDrive.getCurrentPosition());
             tel.update();
 
     }
