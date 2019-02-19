@@ -128,15 +128,9 @@ public class AutoHomeBase extends LinearOpMode
             sleep(2000);
 
 
-            robot.linActuator.setPower(0.8);
+            robot.linActuator.setPower(-1);
 
-            robot.pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE;
-            robot.blinkinLedDriver.setPattern(robot.pattern);
-
-            //robot.pattern = RevBlinkinLedDriver.BlinkinPattern.LIGHT_CHASE_BLUE;
-            //robot.blinkinLedDriver.setPattern(robot.pattern);
-
-            while(robot.touchSensor.getState()){}
+            sleep(3200);
 
             robot.linActuator.setPower(0);
 

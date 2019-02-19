@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Ironclad;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name = "actual drive")
+@TeleOp(name = "Driver Operation")
 public class IronRC_LinearOM extends LinearOpMode{
 
     RobotConfigs robot = new RobotConfigs();

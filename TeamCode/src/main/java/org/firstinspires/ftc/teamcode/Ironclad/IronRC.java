@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode.Ironclad;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name="Robot Control")
-
+@Disabled
 public class IronRC extends OpMode {
 
     RobotConfigs ironclad = new RobotConfigs();

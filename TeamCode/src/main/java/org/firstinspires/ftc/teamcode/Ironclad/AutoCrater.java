@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-@Autonomous(name = "Crater1")
+@Autonomous(name = "Crater-Side Carry")
 public class AutoCrater extends LinearOpMode {
 
     RobotConfigs robot = new RobotConfigs();
@@ -70,7 +70,7 @@ public class AutoCrater extends LinearOpMode {
                     right = true;
                     center = false;
                     left = false;
-                    goalHeading = -105;
+                    goalHeading = -110;
                     telemetry.addData("Right", right);
                     telemetry.update();
                 } else {
@@ -113,17 +113,16 @@ public class AutoCrater extends LinearOpMode {
             robot.rightDrive.setPower(0);
             robot.leftDrive.setPower(0);
 
-            int tar = 0;
-
-            if(left){
-
-                tar = 250;
-
-            }
-
             robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             sleep(100);
-            robot.rightDrive.setTargetPosition(-950-tar);
+
+            if(!left) {
+                robot.rightDrive.setTargetPosition(-950);
+            }else{
+                robot.rightDrive.setTargetPosition(-1050);
+            }
+
+
             robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             robot.rightDrive.setPower(-0.8);
@@ -152,15 +151,21 @@ public class AutoCrater extends LinearOpMode {
             robot.rightDrive.setPower(0);
 
             int tar1 = 0;
+            int tar2 = 0;
 
             if (left){
 
                 tar1 = 925;
+                tar2 = 0;
+            }
+            if(right){
 
+                tar1 = 0;
+                tar2 = -800;
             }
             robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             sleep(100);
-            robot.rightDrive.setTargetPosition(-4600+tar1);
+            robot.rightDrive.setTargetPosition(-4600+tar1+tar2);
             robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             robot.rightDrive.setPower(-1);
@@ -201,7 +206,6 @@ public class AutoCrater extends LinearOpMode {
             }
 
             robot.leftDrive.setPower(0);
-            robot.release.setPosition(1);
 
             robot.rightDrive.setTargetPosition(robot.rightDrive.getCurrentPosition());
 
@@ -215,7 +219,7 @@ public class AutoCrater extends LinearOpMode {
             sleep(700);
 
             if(center){
-
+                robot.release.setPosition(1);
                 robot.leftDrive.setPower(0.5);
                 robot.rightDrive.setPower(-0.5);
 
@@ -240,7 +244,7 @@ public class AutoCrater extends LinearOpMode {
 
             }else{
                 if (right) {
-
+                    robot.release.setPosition(1);
                     robot.leftDrive.setPower(0.5);
                     robot.rightDrive.setPower(-0.5);
 
@@ -259,7 +263,7 @@ public class AutoCrater extends LinearOpMode {
 
                     telemetry.addLine("Left");
                     telemetry.update();
-
+                    robot.release.setPosition(1);
                     robot.leftDrive.setPower(0.5);
                     robot.rightDrive.setPower(-0.5);
 
@@ -275,7 +279,7 @@ public class AutoCrater extends LinearOpMode {
                     }
                 }
             }
-
+            robot.release.setPosition(1);
             robot.leftDrive.setPower(0);
             robot.rightDrive.setPower(0);
 
@@ -295,13 +299,30 @@ public class AutoCrater extends LinearOpMode {
 
                 robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             }
+            if(right){
+
+                robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.rightDrive.setTargetPosition(400);
+                robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                robot.rightDrive.setPower(0.5);
+                robot.leftDrive.setPower(-0.5);
+
+                while (robot.rightDrive.isBusy()){}
+
+                robot.leftDrive.setPower(0);
+                robot.rightDrive.setPower(0);
+
+                robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+            }
 
 
             sleep(200);
 
-            robot.rightDrive.setPower(1);
-            robot.leftDrive.setPower(1);
-            sleep(1000);
+            robot.rightDrive.setPower(0.5);
+            robot.leftDrive.setPower(0.5);
+            sleep(1700);
             robot.rightDrive.setPower(0);
             robot.leftDrive.setPower(0);
             sleep(250);
