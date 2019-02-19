@@ -11,7 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-@Autonomous(name = "Crater-Side Carry")
+@Autonomous(name = "Crater-Side Carry :)")
 public class AutoCrater extends LinearOpMode {
 
     RobotConfigs robot = new RobotConfigs();
