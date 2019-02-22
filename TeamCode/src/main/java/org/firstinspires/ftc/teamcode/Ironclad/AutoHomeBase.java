@@ -128,11 +128,11 @@ public class AutoHomeBase extends LinearOpMode
             sleep(2000);
 
 
-            robot.linActuator.setPower(-1);
+            //robot.linActuator.setPower(-1);
 
             sleep(3200);
 
-            robot.linActuator.setPower(0);
+            //robot.linActuator.setPower(0);
 
             robot.leftDrive.setPower(0.5);
             robot.rightDrive.setPower(-0.5);
@@ -157,7 +157,7 @@ public class AutoHomeBase extends LinearOpMode
 
             sleep(1000);
 
-            robot.Box.setPower(0);
+            //robot.Box.setPower(0);
 
             robot.rightDrive.setPower(1);
             robot.leftDrive.setPower(1);
@@ -177,7 +177,7 @@ public class AutoHomeBase extends LinearOpMode
 
                 sleep(800);
 
-                robot.boxWinch.setPower(0);
+                //robot.boxWinch.setPower(0);
 
                 if (left) {
                     robot.leftDrive.setPower(-0.5);
@@ -220,12 +220,11 @@ public class AutoHomeBase extends LinearOpMode
                     robot.rightDrive.setPower(0);
                 }
 
-                robot.release.setPosition(1)
-                ;
+                //robot.release.setPosition(1);
 
                 sleep(2000);
 
-                robot.release.setPosition(0);
+                //robot.release.setPosition(0);
 
 
                 /*

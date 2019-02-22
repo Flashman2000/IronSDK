@@ -85,12 +85,12 @@ public class AutoCrater extends LinearOpMode {
 
             sleep(2000);
 
-            robot.linActuator.setPower(-1);
+            //robot.linActuator.setPower(-1);
 
             sleep(3200);
 
             //robot.linActuator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.linActuator.setPower(0);
+            //robot.linActuator.setPower(0);
 
             robot.leftDrive.setPower(0.4);
             robot.rightDrive.setPower(-0.4);
@@ -219,7 +219,7 @@ public class AutoCrater extends LinearOpMode {
             sleep(700);
 
             if(center){
-                robot.release.setPosition(1);
+                //robot.release.setPosition(1);
                 robot.leftDrive.setPower(0.5);
                 robot.rightDrive.setPower(-0.5);
 
@@ -244,7 +244,7 @@ public class AutoCrater extends LinearOpMode {
 
             }else{
                 if (right) {
-                    robot.release.setPosition(1);
+                    //robot.release.setPosition(1);
                     robot.leftDrive.setPower(0.5);
                     robot.rightDrive.setPower(-0.5);
 
@@ -263,7 +263,7 @@ public class AutoCrater extends LinearOpMode {
 
                     telemetry.addLine("Left");
                     telemetry.update();
-                    robot.release.setPosition(1);
+                    //robot.release.setPosition(1);
                     robot.leftDrive.setPower(0.5);
                     robot.rightDrive.setPower(-0.5);
 
@@ -279,7 +279,7 @@ public class AutoCrater extends LinearOpMode {
                     }
                 }
             }
-            robot.release.setPosition(1);
+            //robot.release.setPosition(1);
             robot.leftDrive.setPower(0);
             robot.rightDrive.setPower(0);
 

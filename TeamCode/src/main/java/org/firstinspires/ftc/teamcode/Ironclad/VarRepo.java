@@ -39,12 +39,10 @@ public class VarRepo {
     //Robot Objects
     public DcMotor leftDrive = null;
     public DcMotor rightDrive = null;
-    public DcMotor horzSlide = null;
-    public DcMotor vertSlide = null;
-    public DcMotor linActuator = null;
-    public DcMotor boxWinch = null;
-    public Servo release = null;
-    public CRServo Box = null;
+    public DcMotor pivot = null;
+    public DcMotor linAct = null;
+    public DcMotor collection = null;
+    public DcMotor spool = null;
     public DigitalChannel touchSensor = null;
     public BNO055IMU imu;
     public WebcamName webcamName;

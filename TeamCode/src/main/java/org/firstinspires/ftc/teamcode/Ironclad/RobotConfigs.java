@@ -58,6 +58,41 @@ public class RobotConfigs extends VarRepo{
 
     public void initAuto(HardwareMap hwm, Telemetry tel){
 
+        leftDrive = hwm.get(DcMotor.class, "leftDrive");
+        rightDrive = hwm.get(DcMotor.class, "rightDrive");
+        pivot = hwm.get(DcMotor.class, "pivot");
+        linAct = hwm.get(DcMotor.class, "linAct");
+        collection = hwm.get(DcMotor.class, "collec");
+        spool = hwm.get(DcMotor.class, "spool");
+
+        blinkinLedDriver = hwm.get(RevBlinkinLedDriver.class, "blinkin");
+        pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE;
+        blinkinLedDriver.setPattern(pattern);
+
+        leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        pivot.setDirection(DcMotorSimple.Direction.FORWARD);
+        linAct.setDirection(DcMotorSimple.Direction.FORWARD);
+        collection.setDirection(DcMotorSimple.Direction.FORWARD);
+        spool.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        pivot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        linAct.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        collection.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        spool.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        pivot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        pivot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        linAct.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        collection.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
@@ -65,52 +100,9 @@ public class RobotConfigs extends VarRepo{
         parameters.loggingEnabled      = true;
         parameters.loggingTag          = "IMU";
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
-
-        leftDrive = hwm.get(DcMotor.class, "leftDrive");
-        rightDrive = hwm.get(DcMotor.class, "rightDrive");
-        horzSlide = hwm.get(DcMotor.class, "horzSlide");
-        vertSlide = hwm.get(DcMotor.class, "verSlide");
-        linActuator = hwm.get(DcMotor.class, "linAct");
-        boxWinch = hwm.get(DcMotor.class, "winch");
-        Box = hwm.get(CRServo.class, "bx");
-        release = hwm.get(Servo.class, "release");
         imu = hwm.get(BNO055IMU.class, "imu");
-        webcamName = hwm.get(WebcamName.class, "Webcam 1");
-        touchSensor = hwm.get(DigitalChannel.class, "touch");
-        rangeBack = hwm.get(DistanceSensor.class, "rback");
-        rangeFront = hwm.get(DistanceSensor.class, "rfront");
-        blinkinLedDriver = hwm.get(RevBlinkinLedDriver.class, "blinkin");
-
-
-        Rev2mDistanceSensor disFront = (Rev2mDistanceSensor) rangeFront;
-        Rev2mDistanceSensor disBack = (Rev2mDistanceSensor) rangeBack;
-
         imu.initialize(parameters);
 
-        leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
-        horzSlide.setDirection(DcMotorSimple.Direction.FORWARD);
-        vertSlide.setDirection(DcMotorSimple.Direction.FORWARD);
-        linActuator.setDirection(DcMotorSimple.Direction.FORWARD);
-        touchSensor.setMode(DigitalChannel.Mode.INPUT);
-
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
-        horzSlide.setPower(0);
-        vertSlide.setPower(0);
-        linActuator.setPower(0);
-
-        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        horzSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        vertSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        linActuator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        horzSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        vertSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        linActuator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         composetelemetry(tel);
         tel.addLine("Warming Up");
@@ -203,423 +195,145 @@ public class RobotConfigs extends VarRepo{
 
     public void initTele(HardwareMap hwm, Telemetry tel){
 
-
-
-
         leftDrive = hwm.get(DcMotor.class, "leftDrive");
         rightDrive = hwm.get(DcMotor.class, "rightDrive");
-        horzSlide = hwm.get(DcMotor.class, "horzSlide");
-        vertSlide = hwm.get(DcMotor.class, "verSlide");
-        linActuator = hwm.get(DcMotor.class, "linAct");
-        boxWinch = hwm.get(DcMotor.class, "winch");
-        Box = hwm.get(CRServo.class, "bx");
-        release = hwm.get(Servo.class, "release");
-        touchSensor = hwm.get(DigitalChannel.class, "touch");
-        rangeBack = hwm.get(DistanceSensor.class, "rback");
-        rangeFront = hwm.get(DistanceSensor.class, "rfront");
+        pivot = hwm.get(DcMotor.class, "pivot");
+        linAct = hwm.get(DcMotor.class, "linAct");
+        collection = hwm.get(DcMotor.class, "collec");
+        spool = hwm.get(DcMotor.class, "spool");
 
         blinkinLedDriver = hwm.get(RevBlinkinLedDriver.class, "blinkin");
         pattern = RevBlinkinLedDriver.BlinkinPattern.RAINBOW_RAINBOW_PALETTE;
         blinkinLedDriver.setPattern(pattern);
 
-        Rev2mDistanceSensor disFront = (Rev2mDistanceSensor) rangeFront;
-        Rev2mDistanceSensor disBack = (Rev2mDistanceSensor) rangeBack;
-
-        vertSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        linActuator.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        linActuator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        vertSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
-        horzSlide.setDirection(DcMotorSimple.Direction.FORWARD);
-        vertSlide.setDirection(DcMotorSimple.Direction.FORWARD);
-        linActuator.setDirection(DcMotorSimple.Direction.FORWARD);
-        touchSensor.setMode(DigitalChannel.Mode.INPUT);
-
-
-
-
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
-        horzSlide.setPower(0);
-        vertSlide.setPower(0);
-        linActuator.setPower(0);
+        leftDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        pivot.setDirection(DcMotorSimple.Direction.FORWARD);
+        linAct.setDirection(DcMotorSimple.Direction.FORWARD);
+        collection.setDirection(DcMotorSimple.Direction.FORWARD);
+        spool.setDirection(DcMotorSimple.Direction.FORWARD);
 
         leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        horzSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //vertSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //linActuator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        pivot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        linAct.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        collection.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        spool.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        pivot.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        pivot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        horzSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        vertSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        linActuator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-
-
-    }
-
-    public void startRcActivity(Gamepad gp1, Gamepad gp2, Telemetry tel){
-
-        double left;
-        double right;
-        double horz = 0;
-        double vert = 0;
-        double lin;
-        double winch;
-
-        left = -gp1.left_stick_y;
-        right = -gp1.right_stick_y;
-        lin = gp1.right_trigger - gp1.left_trigger;
-        winch = (-gp2.right_stick_y)/1.7;
-        serv = gp2.right_trigger - gp2.left_trigger;
-
-        if(gp1.a){
-            release.setPosition(0.2);
-        }else if(gp1.b){
-            release.setPosition(1);
-        }
-
-        if(gp1.y){
-
-            linActuator.setPower(1);
-
-            while(touchSensor.getState()){
-
-                if(!touchSensor.getState()){
-                    break;
-                }
-            }
-
-            linActuator.setPower(0);
-
-        }
-
-        if(gp2.dpad_up){
-            horz = 1;
-        }else if(gp2.dpad_down){
-            horz = -1;
-        }else{
-            horz = 0;
-        }
-
-        if(gp1.dpad_up){
-            vertSlide.setTargetPosition(10);
-            vertSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            vertSlide.setPower(0.7);
-            telert.reset();
-            while (vertSlide.isBusy()){
-                left = -gp1.left_stick_y;
-                right = -gp1.right_stick_y;
-                lin = gp1.right_trigger - gp1.left_trigger;
-                winch = (-gp2.right_stick_y)/1.7;
-
-                serv = gp2.right_trigger - gp2.left_trigger;
-
-                if(gp1.a){
-                    release.setPosition(0.2);
-                }else if(gp1.b){
-                    release.setPosition(1);
-                }
-
-                if(gp1.y){
-
-                    linActuator.setPower(1);
-
-                    while(touchSensor.getState()){
-
-                        if(!touchSensor.getState()){
-                            break;
-                        }
-                    }
-
-                    linActuator.setPower(0);
-
-                }
-
-                if(gp2.dpad_up){
-                    horz = 1;
-                }else if(gp2.dpad_down){
-                    horz = -1;
-                }else{
-                    horz = 0;
-                }
-
-                leftDrive.setPower(left);
-
-                rightDrive.setPower(right);
-                horzSlide.setPower(horz);
-                //vertSlide.setPower(vert);
-                linActuator.setPower(lin);
-                boxWinch.setPower(winch);
-                Box.setPower(serv);
-                tel.addData("Pressed", touchSensor.getState());
-                tel.addData("Front Distance", rangeFront.getDistance(DistanceUnit.INCH));
-                tel.addData("Back Distance", rangeBack.getDistance(DistanceUnit.INCH));
-                tel.addData("Vert Encoder Val", vertSlide.getCurrentPosition());
-                tel.addData("Actuator Encoder Val", linActuator.getCurrentPosition());
-                tel.update();
-            }
-
-            vertSlide.setPower(0);
-            vertSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            release.setPosition(0.2);
-
-        }else if(gp1.dpad_down){
-            vertSlide.setTargetPosition(-6100);
-            vertSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            vertSlide.setPower(-0.7);
-
-            telert.reset();
-            while (vertSlide.isBusy()){
-
-
-
-                left = -gp1.left_stick_y;
-                right = -gp1.right_stick_y;
-                lin = gp1.right_trigger - gp1.left_trigger;
-                winch = (-gp2.right_stick_y)/1.7;
-
-                serv = gp2.right_trigger - gp2.left_trigger;
-
-                if(gp1.a){
-                    release.setPosition(0.2);
-                }else if(gp1.b){
-                    release.setPosition(1);
-                }
-
-                if(gp1.y){
-
-                    linActuator.setPower(1);
-
-                    while(touchSensor.getState()){
-
-                        if(!touchSensor.getState()){
-                            break;
-                        }
-                    }
-
-                    linActuator.setPower(0);
-
-                }
-
-                if(gp2.dpad_up){
-                    horz = 1;
-                }else if(gp2.dpad_down){
-                    horz = -1;
-                }else{
-                    horz = 0;
-                }
-
-                leftDrive.setPower(left);
-                rightDrive.setPower(right);
-                horzSlide.setPower(horz);
-                //vertSlide.setPower(vert);
-                linActuator.setPower(lin);
-                boxWinch.setPower(winch);
-                Box.setPower(serv);
-                tel.addData("Pressed", touchSensor.getState());
-                tel.addData("Front Distance", rangeFront.getDistance(DistanceUnit.INCH));
-                tel.addData("Back Distance", rangeBack.getDistance(DistanceUnit.INCH));
-                tel.addData("Encoder Val", vertSlide.getCurrentPosition());
-                tel.update();
-            }
-            vertSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            vertSlide.setPower(0);
-        }
-
-        leftDrive.setPower(left);;
-        rightDrive.setPower(right);
-        horzSlide.setPower(horz);
-        //vertSlide.setPower(vert);
-        linActuator.setPower(lin);
-        boxWinch.setPower(winch);
-        Box.setPower(serv);
-        tel.addData("Pressed", touchSensor.getState());
-        tel.addData("Front Distance", rangeFront.getDistance(DistanceUnit.INCH));
-        tel.addData("Back Distance", rangeBack.getDistance(DistanceUnit.INCH));
-        tel.addData("Vert Encoder Val", vertSlide.getCurrentPosition());
-        tel.addData("Actuator Encoder Val", linActuator.getCurrentPosition());
-        tel.update();
-
+        pivot.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        linAct.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        collection.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
 
     public void startRcActivityLinOM(Gamepad gp1, Gamepad gp2, Telemetry tel, LinearOpMode opmode){
 
-            double left;
-            double right;
-            double horz = 0;
-            double vert = 0;
-            double lin;
-            double winch;
+        double right;
+        double left;
+        double act;
+        double col;
+        double piv;
+        double spo;
 
-            left = -gp1.left_stick_y;
-            right = -gp1.right_stick_y;
-            lin = gp1.right_trigger - gp1.left_trigger;
-            winch = (-gp2.right_stick_y)/1.7;
-            serv = gp2.right_trigger - gp2.left_trigger;
+        right = gp1.right_stick_y;
+        left = gp1.left_stick_y;
+        act = gp1.right_trigger - gp1.left_trigger;
+        col = gp2.right_trigger - gp2.left_trigger;
+        piv = -gp2.right_stick_y;
+        spo = -gp2.left_stick_y;
 
-            if(gp1.a){
-                release.setPosition(0.2);
-            }else if(gp1.b){
-                release.setPosition(1);
+        rightDrive.setPower(right);
+        leftDrive.setPower(left);
+        linAct.setPower(act);
+        collection.setPower(col);
+        pivot.setPower(-piv);
+        spool.setPower(spo);
+
+        if(gp2.a){
+            pivot.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            pivot.setTargetPosition(0);
+            pivot.setPower(0.7);
+            while(opmode.opModeIsActive() && pivot.isBusy()){
+
+                right = gp1.right_stick_y;
+                left = gp1.left_stick_y;
+                act = gp1.right_trigger - gp1.left_trigger;
+                col = gp2.right_trigger - gp2.left_trigger;
+                spo = -gp2.left_stick_y;
+
+                rightDrive.setPower(right);
+                leftDrive.setPower(left);
+                linAct.setPower(act);
+                collection.setPower(col);
+                spool.setPower(spo);
+
             }
+            pivot.setPower(0);
+            pivot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-            if(gp1.y){
+        }
 
-                linActuator.setPower(1);
+        if(gp2.b){
+            pivot.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            pivot.setTargetPosition(-3100);
+            pivot.setPower(-1);
+            while(opmode.opModeIsActive() && pivot.isBusy()){
 
-                while(touchSensor.getState()){
+                right = gp1.right_stick_y;
+                left = gp1.left_stick_y;
+                act = gp1.right_trigger - gp1.left_trigger;
+                col = gp2.right_trigger - gp2.left_trigger;
+                spo = -gp2.left_stick_y;
 
-                    if(!touchSensor.getState()){
-                        break;
-                    }
-                }
-
-                linActuator.setPower(0);
+                rightDrive.setPower(right);
+                leftDrive.setPower(left);
+                linAct.setPower(act);
+                collection.setPower(col);
+                spool.setPower(spo);
 
             }
+            pivot.setPower(0);
+            pivot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-            if(gp2.dpad_up){
-                horz = 1;
-            }else if(gp2.dpad_down){
-                horz = -1;
-            }else{
-                horz = 0;
+        }
+
+        if(gp2.y){
+            pivot.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            pivot.setTargetPosition(-4300);
+            pivot.setPower(-0.7);
+            while(opmode.opModeIsActive() && pivot.isBusy()){
+
+                right = gp1.right_stick_y;
+                left = gp1.left_stick_y;
+                act = gp1.right_trigger - gp1.left_trigger;
+                col = gp2.right_trigger - gp2.left_trigger;
+                spo = -gp2.left_stick_y;
+
+                rightDrive.setPower(right);
+                leftDrive.setPower(left);
+                linAct.setPower(act);
+                collection.setPower(col);
+                spool.setPower(spo);
+
             }
+            pivot.setPower(0);
+            pivot.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-            if(gp1.dpad_up){
-                vertSlide.setTargetPosition(10);
-                vertSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                vertSlide.setPower(1);
-                telert.reset();
-                while (vertSlide.isBusy() && opmode.opModeIsActive() && telert.seconds() < 7){
-                    left = -gp1.left_stick_y;
-                    right = -gp1.right_stick_y;
-                    lin = gp1.right_trigger - gp1.left_trigger;
-                    winch = (-gp2.right_stick_y)/1.7;
+        }
 
-                    serv = gp2.right_trigger - gp2.left_trigger;
-
-                    if(gp1.a){
-                        release.setPosition(0.2);
-                    }else if(gp1.b){
-                        release.setPosition(1);
-                    }
-
-
-                    if(gp2.dpad_up){
-                        horz = 1;
-                    }else if(gp2.dpad_down){
-                        horz = -1;
-                    }else{
-                        horz = 0;
-                    }
-
-                    leftDrive.setPower(left);
-
-                    rightDrive.setPower(right);
-                    horzSlide.setPower(horz);
-                    //vertSlide.setPower(vert);
-                    linActuator.setPower(lin);
-                    boxWinch.setPower(winch);
-                    Box.setPower(serv);
-                    tel.addData("Pressed", touchSensor.getState());
-                    tel.addData("Front Distance", rangeFront.getDistance(DistanceUnit.INCH));
-                    tel.addData("Back Distance", rangeBack.getDistance(DistanceUnit.INCH));
-                    tel.addData("Vert Encoder Val", vertSlide.getCurrentPosition());
-                    tel.addData("Actuator Encoder Val", linActuator.getCurrentPosition());
-                    tel.update();
-                }
-
-                vertSlide.setPower(0);
-                vertSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                release.setPosition(0.2);
-
-            }else if(gp1.dpad_down){
-                vertSlide.setTargetPosition(-6100);
-                vertSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                vertSlide.setPower(-1);
-
-                telert.reset();
-                while (vertSlide.isBusy() && opmode.opModeIsActive() && telert.seconds() < 7){
-
-
-
-                    left = -gp1.left_stick_y;
-                    right = -gp1.right_stick_y;
-                    lin = gp1.right_trigger - gp1.left_trigger;
-                    winch = (-gp2.right_stick_y)/1.7;
-
-                    serv = gp2.right_trigger - gp2.left_trigger;
-
-                    if(gp1.a){
-                        release.setPosition(0.2);
-                    }else if(gp1.b){
-                        release.setPosition(1);
-                    }
-
-                    if(gp1.y){
-
-                        linActuator.setPower(1);
-
-                        while(touchSensor.getState()){
-
-                            if(!touchSensor.getState()){
-                                break;
-                            }
-                        }
-
-                        linActuator.setPower(0);
-
-                    }
-
-                    if(gp2.dpad_up){
-                        horz = 1;
-                    }else if(gp2.dpad_down){
-                        horz = -1;
-                    }else{
-                        horz = 0;
-                    }
-
-                    leftDrive.setPower(left);
-                    rightDrive.setPower(right);
-                    horzSlide.setPower(horz);
-                    //vertSlide.setPower(vert);
-                    linActuator.setPower(lin);
-                    boxWinch.setPower(winch);
-                    Box.setPower(serv);
-                    tel.addData("Pressed", touchSensor.getState());
-                    tel.addData("Front Distance", rangeFront.getDistance(DistanceUnit.INCH));
-                    tel.addData("Back Distance", rangeBack.getDistance(DistanceUnit.INCH));
-                    tel.addData("Encoder Val", vertSlide.getCurrentPosition());
-                    tel.update();
-                }
-                vertSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                vertSlide.setPower(0);
-            }
-
-            leftDrive.setPower(left);;
-            rightDrive.setPower(right);
-            horzSlide.setPower(horz);
-            //vertSlide.setPower(vert);
-            linActuator.setPower(lin);
-            boxWinch.setPower(winch);
-            Box.setPower(serv);
-            tel.addData("Pressed", touchSensor.getState());
-            tel.addData("Front Distance", rangeFront.getDistance(DistanceUnit.INCH));
-            tel.addData("Back Distance", rangeBack.getDistance(DistanceUnit.INCH));
-            tel.addData("Vert Encoder Va", vertSlide.getCurrentPosition());
-            tel.addData("Actuator Encoder Va", linActuator.getCurrentPosition());
-            tel.addData("Drive Encoder Val", rightDrive.getCurrentPosition());
-            tel.update();
+        tel.addData("Pivot pos", pivot.getCurrentPosition());
+        tel.addData("left pos", leftDrive.getCurrentPosition());
+        tel.addData("right pos", rightDrive.getCurrentPosition());
 
     }
 

@@ -54,11 +54,11 @@ public class RobotMovements extends VarRepo {
     }
 
     public void descend (double power){
-        robot.linActuator.setPower(power);
+    //    robot.linActuator.setPower(power);
     }
 
     public void stopLinearActuator(){
-        robot.linActuator.setPower(0);
+        //robot.linActuator.setPower(0);
     }
 
     public void flatten(double goalPitch, LinearOpMode opmode){
@@ -69,7 +69,7 @@ public class RobotMovements extends VarRepo {
         }
 
         opmode.sleep(300);
-        robot.linActuator.setPower(0);
+        //robot.linActuator.setPower(0);
 
     }
 
@@ -97,15 +97,15 @@ public class RobotMovements extends VarRepo {
     }
 
     public void CollectMineralAndDeployRQ(LinearOpMode opmode){
-        robot.boxWinch.setPower(-0.6);
+        //robot.boxWinch.setPower(-0.6);
 
         opmode.sleep(200);
 
-        robot.boxWinch.setPower(0);
+        //robot.boxWinch.setPower(0);
 
         drive(0.4);
 
-        robot.Box.setPower(-1);
+        //robot.Box.setPower(-1);
 
         opmode.sleep(1500);
 
@@ -113,7 +113,7 @@ public class RobotMovements extends VarRepo {
 
         opmode.sleep(1000);
 
-        robot.Box.setPower(0);
+        //robot.Box.setPower(0);
 
         drive(1);
 
@@ -129,7 +129,7 @@ public class RobotMovements extends VarRepo {
 
         stop();
 
-        robot.release.setPosition(1);
+        //robot.release.setPosition(1);
 
     }
 

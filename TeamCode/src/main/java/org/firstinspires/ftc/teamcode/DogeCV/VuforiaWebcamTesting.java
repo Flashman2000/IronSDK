@@ -78,20 +78,6 @@ public class VuforiaWebcamTesting extends LinearOpMode
 
         while (opModeIsActive()){
 
-            bot.linActuator.setPower(-1);
-
-            sleep(1000);
-
-            while(pitch < goalPitch && opModeIsActive()){
-                angles = bot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                pitch =  angles.thirdAngle;
-            }
-
-            sleep(300);
-            bot.linActuator.setPower(0);
-
-
-
         }
 
     }
