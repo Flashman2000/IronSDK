@@ -31,30 +31,34 @@ package org.firstinspires.ftc.teamcode.DogeCV;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
+import com.disnodeteam.dogecv.detectors.roverrukus.GoldDetector;
 import com.disnodeteam.dogecv.detectors.roverrukus.SamplingOrderDetector;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.disnodeteam.dogecv.filters.HSVColorFilter;
+import com.disnodeteam.dogecv.filters.LeviColorFilter;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @TeleOp(name="Sampling Order Example", group="DogeCV")
-@Disabled
-public class SamplingOrderExample extends OpMode
-{
+
+public class SamplingOrderExample extends OpMode {
+    // Detector object
     private SamplingOrderDetector detector;
 
 
     @Override
     public void init() {
-        telemetry.addData("Status", "DogeCV 2018.0 - Sampling Order Example");
+        telemetry.addData("Status", "DogeCV 2019.1 - Sampling Order Example");
 
-        detector = new SamplingOrderDetector();
-        detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance());
-        detector.useDefaults();
+        // Setup detector
+        detector = new SamplingOrderDetector(); // Create the detector
+        detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize detector with app context and camera
+        detector.useDefaults(); // Set detector to use default settings
 
-        detector.downscale = 1; // How much to downscale the input frames
-
-        // Optional Tuning
+        detector.downscale = 0.4; // How much to downscale the input frames
+        detector.whiteFilter = new LeviColorFilter(LeviColorFilter.ColorPreset.WHITE);
+        // Optional tuning
         detector.areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Can also be PERFECT_AREA
         //detector.perfectAreaScorer.perfectArea = 10000; // if using PERFECT_AREA scoring
         detector.maxAreaScorer.weight = 0.001;
@@ -62,11 +66,12 @@ public class SamplingOrderExample extends OpMode
         detector.ratioScorer.weight = 15;
         detector.ratioScorer.perfectRatio = 1.0;
 
-        detector.enable();
-
-
+        detector.enable(); // Start detector
     }
 
+    /*
+     * Code to run REPEATEDLY when the driver hits INIT
+     */
     @Override
     public void init_loop() {
     }
@@ -80,9 +85,13 @@ public class SamplingOrderExample extends OpMode
     }
 
 
+    /*
+     * Code to run REPEATEDLY when the driver hits PLAY
+     */
     @Override
     public void loop() {
-
+        telemetry.addData("Current Order" , detector.getCurrentOrder().toString()); // The current result for the frame
+        telemetry.addData("Last Order" , detector.getLastOrder().toString()); // The last known result
     }
 
     /*
@@ -90,7 +99,7 @@ public class SamplingOrderExample extends OpMode
      */
     @Override
     public void stop() {
-        detector.disable();
+        if(detector != null) detector.disable();
     }
 
 }

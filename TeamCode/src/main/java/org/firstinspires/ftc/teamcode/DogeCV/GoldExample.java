@@ -30,37 +30,44 @@
 package org.firstinspires.ftc.teamcode.DogeCV;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
-import com.disnodeteam.dogecv.detectors.roverrukus.HoughSilverDetector;
+import com.disnodeteam.dogecv.DogeCV;
+import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
+import com.disnodeteam.dogecv.detectors.roverrukus.GoldDetector;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.opencv.core.Size;
+import org.opencv.core.Rect;
 
 
-@TeleOp(name="Hough Silver Example", group="DogeCV")
+@TeleOp(name="Gold Example", group="DogeCV")
 
-public class HoughSilverExample extends OpMode
+public class GoldExample extends OpMode
 {
-    //Detector object
-    private HoughSilverDetector detector;
+    // Detector object
+    private GoldDetector detector;
 
 
     @Override
     public void init() {
-        telemetry.addData("Status", "DogeCV 2019.1 - Gold SilverDetector Example");
+        telemetry.addData("Status", "DogeCV 2019.1 - Gold Example");
+        // Set up detector
+        detector = new GoldDetector(); // Create detector
+        detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
+        detector.useDefaults(); // Set detector to use default settings
 
-        detector = new HoughSilverDetector(); //Create detector
-        detector.downscale = 1; //Increase detector sensitivity with smaller size. Make sure to preserve aspect ratio.
-        detector.useFixedDownscale = false; //Don't fix the downscale
-        detector.sensitivity = 1.6; //Play with this based on your camera, adjusts how sensitive the detector is
-        detector.minDistance = 60; //Minimum distance between silver mineral centers in pixels
-        detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); //Initialize detector with app context and camera
-        detector.useDefaults(); //Use default settings
-        
-        // Optional Tuning
+        // Optional tuning
         detector.downscale = 0.4; // How much to downscale the input frames
 
-        detector.enable(); //Start the detector
+        detector.areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Can also be PERFECT_AREA
+        //detector.perfectAreaScorer.perfectArea = 10000; // if using PERFECT_AREA scoring
+        detector.maxAreaScorer.weight = 0.005; //
+
+        detector.ratioScorer.weight = 5; //
+        detector.ratioScorer.perfectRatio = 1.0; // Ratio adjustment
+
+        detector.enable(); // Start the detector!
+
+
     }
 
     /*
@@ -78,13 +85,15 @@ public class HoughSilverExample extends OpMode
 
     }
 
-
     /*
      * Code to run REPEATEDLY when the driver hits PLAY
      */
     @Override
     public void loop() {
-
+        telemetry.addData("IsFound: ", detector.isFound());
+        Rect rect = detector.getFoundRect();
+        if(detector.isFound()) telemetry.addData("Location: ", Integer.toString((int) (rect.x + rect.width*0.5)) + ", " + Integer.toString((int) (rect.y+0.5*rect.height)));
+        telemetry.update();
     }
 
     /*
@@ -92,6 +101,7 @@ public class HoughSilverExample extends OpMode
      */
     @Override
     public void stop() {
+        // Disable the detector
         if(detector != null) detector.disable();
     }
 
