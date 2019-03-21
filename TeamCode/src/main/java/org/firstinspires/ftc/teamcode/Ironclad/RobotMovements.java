@@ -169,7 +169,7 @@ public class RobotMovements extends VarRepo {
 
     }
 
-    public void delpoyAndKnock(LinearOpMode opmode, Telemetry tel, double power){
+    public void delpoyAndOrient(LinearOpMode opmode, Telemetry tel, double power){
 
         mineralLoc = scan(opmode, tel);
 
@@ -181,7 +181,7 @@ public class RobotMovements extends VarRepo {
 
             turnLeft(power);
 
-            while(opmode.opModeIsActive() && heading < 50){
+            while(opmode.opModeIsActive() && heading < 100){
 
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 heading = angles.firstAngle;
@@ -195,7 +195,7 @@ public class RobotMovements extends VarRepo {
 
             turnLeft(power);
 
-            while (opmode.opModeIsActive() && heading < 20){
+            while (opmode.opModeIsActive() && heading < 50){
 
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 heading = angles.firstAngle;
@@ -210,7 +210,7 @@ public class RobotMovements extends VarRepo {
 
             turnLeft(power);
 
-            while(opmode.opModeIsActive() && heading < 180){
+            while(opmode.opModeIsActive() && heading < 150){
 
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 heading = angles.firstAngle;
