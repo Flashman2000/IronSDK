@@ -56,7 +56,7 @@ The beta branch.... name kinda says it. This is the beta testing branch. Code in
 - Patched fatal bug with using vuforia with opencv
 
 ### Version 0.4.1-beta (10/11/18)
-- DogeCV Compter vision library has been updated to v2018.2.1
+- DogeCV Computer Vision Library has been updated to v2018.2.1
 - DogeCV implemented into robot.java repository and in IronRC_BETA.java
 
 ### Version 0.5.0-beta (10/23/18)
@@ -116,9 +116,9 @@ The beta branch.... name kinda says it. This is the beta testing branch. Code in
 
 ### World's Edition v1.0 (3/21/19)
 - New versioning system in order to commemorate, and *maybe* flex :)
-- Updated to DogeCV 2019.1 (https://github.com/MechanicalMemes/DogeCV)
+- Updated DogeCV Computer Vision Library to 2019.1 (https://github.com/MechanicalMemes/DogeCV)
 - New methods in development for greater effeciency and streamlining
 - New test autonomous
 - Teleop redesgined around a mecanum drive-train (yet to be tested)
 - ALOT of clean up/optimization
-- Recovered the readme. Welcome back :)
+- Recovered the readme. Welcome back :), we missed you
