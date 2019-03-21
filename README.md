@@ -10,6 +10,9 @@
 # IronSDK
 Ironclad 8080's programming repository. This repository is constantly being updated with the newest changes from Ironclad's programming team.
 
+## Special Thanks to:
+Developed by Levi Gershon of Newton's Law and Alex Carter of Disnode Robotics for development on DogeCV
+
 ## Project Status:
 **Awaiting push from beta branch**
 
