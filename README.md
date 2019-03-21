@@ -1,5 +1,19 @@
+<div align="center">
+  <img src ="https://i.imgur.com/9nZyLP6.jpg" width="60%" height="60%" class="center">
+  <br></br>
+<b>Developed by Vedant Thorat of Ironclad 8080</b>
+  <br/>
+  <i>Version 3.0.0 | Updated 1/19/2019</i>
+</div>
+
+
 # IronSDK
-**This is the master branch. The most stable and competition-standard SDK version is on this branch.**
+Ironclad 8080's programming repository. This repository is constantly being updated with the newest changes from Ironclad's programming team.
+
+## Project Status:
+**Awaiting push from beta branch**
+
+## Changelog:
 
 ### Version 0.5.0 (10/23/2018)
 - First sync from beta branch
