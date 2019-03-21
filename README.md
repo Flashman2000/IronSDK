@@ -10,7 +10,7 @@
 The beta branch.... name kinda says it. This is the beta testing branch. Code in here usually isn't fully developed and may or may not be unstable. Beware.
 
 ## Project Status:
-**Beta testing World's Edition v1.1**
+**Our programming gnomes are working hard to get us World's Edition v1.1**
 
 ## Changelog:
 
