@@ -89,16 +89,24 @@
 - Old teleop program deprecated
 - Remodeling of methods in 'RobotConfigs' around new robot
 
-### Version 2.0 (2/25/19)
-- Final competition SDK
+### Version 2.0-beta (2/25/19)
+- Almost
 - Autonomous completed
 - Teleop Finalized
+- Added REV Blining LED Driver support
+
+### Version 3.0
+- Final Competition SDK
+- Autonomous perfected
+- Inclusion of double sampling autonomous (95 points total)
+- TeleOperative ease of use features added
 
 ### World's Edition v1.0 (3/21/19)
 - Updated to DogeCV 2019.1 (https://github.com/MechanicalMemes/DogeCV)
 - New methods in development for greater effeciency and streamlining
 - New test autonomous
 - Teleop redesgined around a mecanum drive-train (yet to be tested)
+- ALOT of clean up/optimization
 - Recovered the readme. Welcome back :)
 
 
