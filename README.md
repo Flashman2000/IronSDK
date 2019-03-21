@@ -1,5 +1,18 @@
+<div align="center">
+  <img src="https://i.imgur.com/9nZyLP6.jpg" width="70%" height="70%" class="center">
+  <br></br>
+<b>Developed by Vedant Thorat of Ironclad #8080</b>
+  <br/>
+  <i>Version World's Edition v1.0 | Updated 3/21/2019</i>
+</div>
+
 # IronSDK
-**THIS IS THE BETA BRANCH! Things that are still in beta/testing are in this repository. Once it's fully tested and bug proofed, its uploaded to the master branch.**
+The beta branch.... name kinda says it. This is the beta testing branch. Code in here usually isn't fully developed and may or may not be unstable. Beware.
+
+## Project Status:
+**Beta testing World's Edition v1.1**
+
+## Changelog:
 
 ### Version 0.1-beta (9/13/18)
 - Method Repository 'robot' created
