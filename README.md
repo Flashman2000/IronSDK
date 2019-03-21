@@ -102,7 +102,7 @@
 - TeleOperative ease of use features added
 
 ### World's Edition v1.0 (3/21/19)
-- New versioning system in order to commemorate (and maybe flex (:)
+- New versioning system in order to commemorate, and *maybe* flex :)
 - Updated to DogeCV 2019.1 (https://github.com/MechanicalMemes/DogeCV)
 - New methods in development for greater effeciency and streamlining
 - New test autonomous
