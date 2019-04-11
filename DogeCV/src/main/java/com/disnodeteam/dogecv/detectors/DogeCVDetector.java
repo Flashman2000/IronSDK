@@ -5,6 +5,7 @@ import com.disnodeteam.dogecv.OpenCVPipeline;
 import com.disnodeteam.dogecv.math.MathFTC;
 import com.disnodeteam.dogecv.scoring.DogeCVScorer;
 
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
@@ -75,6 +76,8 @@ public abstract class DogeCVDetector extends OpenCVPipeline{
 
         rgba.copyTo(workingMat);
 
+        Core.rotate(workingMat, workingMat, Core.ROTATE_90_CLOCKWISE);
+
         if(workingMat.empty()){
             return rgba;
         }
@@ -84,6 +87,8 @@ public abstract class DogeCVDetector extends OpenCVPipeline{
         Imgproc.resize(process(workingMat),workingMat,getInitSize()); // Process and scale back to original size for viewing
         //Print Info
         Imgproc.putText(workingMat,"DogeCV 2019.1 " + detectorName + ": " + getAdjustedSize().toString() + " - " + speed.toString() ,new Point(5,30),0,0.5,new Scalar(0,255,255),2);
+
+
 
         return workingMat;
     }

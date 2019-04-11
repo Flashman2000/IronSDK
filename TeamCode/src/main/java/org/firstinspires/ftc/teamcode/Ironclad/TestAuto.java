@@ -8,14 +8,14 @@ import org.firstinspires.ftc.teamcode.TransitionSoftware.AutoTransitioner;
 @Autonomous(name = "Test Auto")
 public class TestAuto extends LinearOpMode {
 
-    RobotConfigs config = new RobotConfigs();
-    RobotMovements robot = new RobotMovements();
+    RobotConfigs robot = new RobotConfigs();
+    RobotMovements uselessLULW = new RobotMovements();
 
 
     @Override
     public void runOpMode(){
 
-        config.initAuto(hardwareMap, telemetry);
+        robot.initAuto(hardwareMap, telemetry);
 
         AutoTransitioner.transitionOnStop(this, "Drive");
 
@@ -23,13 +23,34 @@ public class TestAuto extends LinearOpMode {
 
         telemetry.clear();
 
-        config.claim.setPosition(1);
 
-        String worientation = config.scan(this, telemetry);
+        String worientation = robot.scan(this, telemetry);
 
         telemetry.addLine(worientation);
 
+        if(worientation == "C"){
+
+            robot.claim.setPosition(0.5);
+
+        }
+
+        if(worientation == "L"){
+
+            robot.claim.setPosition(0);
+
+        }
+
+        if(worientation == "R"){
+
+            robot.claim.setPosition(1);
+
+        }
+
+
+        telemetry.addData("Servo Pos", robot.claim.getPosition());
         telemetry.update();
+
+        sleep(2000);
 
     }
 

@@ -122,3 +122,7 @@ The beta branch.... name kinda says it. This is the beta testing branch. Code in
 - Teleop redesgined around a mecanum drive-train (yet to be tested)
 - ALOT of clean up/optimization
 - Recovered the readme. Welcome back :), we missed you
+
+### World's Edition v1.1 (4/11/19)
+- DogeCV view orientation bug fixed (rotated 90 degrees counter clockwise)
+- Changed motion methods and redesigned teleop to occomodate for a 2 wheel drive omni-wheel drive train
