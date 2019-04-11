@@ -20,7 +20,7 @@ public class IronRC extends LinearOpMode{
 
         while(opModeIsActive()){
 
-            robot.RCActivity(gamepad1, gamepad2);
+            robot.RCActivity(gamepad1, gamepad2, telemetry, this);
 
         }
 

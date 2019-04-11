@@ -36,6 +36,7 @@ import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldDetector;
 import com.disnodeteam.dogecv.filters.LeviColorFilter;
 import com.disnodeteam.dogecv.math.MathFTC;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -66,7 +67,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  */
 
 @TeleOp(name="Webcam Gold Detector", group="DogeCV")
-
+@Disabled
 public class WebcamGoldExample extends OpMode {
 
     //Webcam object
@@ -79,12 +80,12 @@ public class WebcamGoldExample extends OpMode {
     public void init() {
         telemetry.addData("Status", "DogeCV 2019.1 - Webcam Gold Example");
 
-        webcamName = hardwareMap.get(WebcamName.class, "Webcam 1"); //Retrieves the webcam from the hardware map
+        webcamName = hardwareMap.get(WebcamName.class, "Webcam"); //Retrieves the webcam from the hardware map
 
         detector = new GoldDetector(); // Create a Gold Detector
 
         //Sets the Vuforia license key. ALWAYS SET BEFORE INIT!
-        detector.VUFORIA_KEY = "---INSERT YOUR KEY HERE---";
+        detector.VUFORIA_KEY = "";
 
         //Inits the detector. Choose which camera to use, and whether to detect VuMarks here
         detector.init(hardwareMap.appContext,CameraViewDisplay.getInstance(), DogeCV.CameraMode.WEBCAM, false, webcamName);

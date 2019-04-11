@@ -23,11 +23,13 @@ public class TestAuto extends LinearOpMode {
 
         telemetry.clear();
 
-        robot.delpoyAndOrient(this, telemetry, -1);
+        config.claim.setPosition(1);
 
-        robot.move(1, 1000, this);
-        sleep(250);
-        robot.move(-1, 900, this);
+        String worientation = config.scan(this, telemetry);
+
+        telemetry.addLine(worientation);
+
+        telemetry.update();
 
     }
 

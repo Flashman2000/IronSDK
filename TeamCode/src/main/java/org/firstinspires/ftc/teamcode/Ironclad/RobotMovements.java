@@ -121,55 +121,9 @@ public class RobotMovements extends VarRepo {
 
     }
 
-    public String scan(LinearOpMode opmode, Telemetry tel) {
 
-        while (opmode.opModeIsActive() && count < 2) {
 
-            tel.addData("IsAligned", robot.autoAlignDetector.getAligned());
-            tel.addData("X Pos", robot.autoAlignDetector.getXPosition());
-            tel.update();
-            aligned = robot.autoAlignDetector.getAligned();
-            pos = robot.autoAlignDetector.getXPosition();
-            opmode.sleep(500);
-            count++;
-
-        }
-
-        tel.addData("align_ver", aligned);
-        tel.addData("pos_ver", pos);
-        tel.update();
-
-        if (aligned) {
-            center = true;
-            right = false;
-            left = false;
-            goalHeading = 95;
-            tel.addData("Center", center);
-            tel.update();
-            return "C";
-        }
-        if (!aligned && pos > 400) {
-            right = true;
-            center = false;
-            left = false;
-            goalHeading = 55;
-            tel.addData("Right", right);
-            tel.update();
-            return "R";
-        }
-        else {
-            left = true;
-            center = false;
-            right = false;
-            goalHeading = 135;
-            tel.addData("Left", left);
-            tel.update();
-            return "L";
-        }
-
-    }
-
-    public void delpoyAndOrient(LinearOpMode opmode, Telemetry tel, double power){
+   /** public void delpoyAndOrient(LinearOpMode opmode, Telemetry tel, double power){
 
         mineralLoc = scan(opmode, tel);
 
@@ -226,7 +180,7 @@ public class RobotMovements extends VarRepo {
 
 
 
-
+    */
 
 
 
