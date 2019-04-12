@@ -3,7 +3,7 @@
   <br></br>
 <b>Developed by Vedant Thorat of Ironclad 8080</b>
   <br/>
-  <i>Version 3.0.0 | Updated 1/19/2019</i>
+  <i>Version 3.0.0 | Last Updated 1/19/2019</i>
 </div>
 
 
@@ -11,10 +11,12 @@
 Ironclad 8080's programming repository. This repository is constantly being updated with the newest changes from Ironclad's programming team.
 
 ## Special Thanks to:
-Developed by Levi Gershon of Newton's Law and Alex Carter of Disnode Robotics for development on DogeCV
+- Levi Gershon of Newton's Law and Alex Carter of Disnode Robotics for development on DogeCV
+- Ramazan Ozdemir for being a GOD mentor <img src ="https://i.imgur.com/EZm56V7.jpg" width="2.5%" height="2.5%" class="center">
+- All my reset monkeys <img src="https://i.imgur.com/MeZJyow.png" width="2.5%" height="2.5%" class="center">
 
 ## Project Status:
-**Awaiting push from beta branch**
+**Awaiting push from beta branch for World's Edition™, the final competition ready SDK for World's.**
 
 ## Changelog:
 
