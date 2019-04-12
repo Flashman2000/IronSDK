@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://i.imgur.com/9nZyLP6.jpg" width="70%" height="70%" class="center">
+  <img src="https://i.imgur.com/9nZyLP6.jpg" width="60%" height="60%" class="center">
   <br></br>
 <b>Developed by Vedant Thorat of Ironclad #8080</b>
   <br/>
@@ -103,13 +103,13 @@ The beta branch.... name kinda says it. This is the beta testing branch. Code in
 - Remodeling of methods in 'RobotConfigs' around new robot
 
 ### Version 2.0-beta (2/25/19)
-- Almost
+- Almost competition ready
 - Autonomous completed
 - Teleop Finalized
 - Added REV Blinkin LED Driver support
 
 ### Version 3.0
-- Final Competition SDK
+- Final Competition SDK (for states)
 - Autonomous perfected
 - Inclusion of double sampling autonomous (95 points total)<img src="https://i.imgur.com/0xKIQUU.jpg" width="5%" height="5%" class="center">
 - TeleOperative ease of use features added
