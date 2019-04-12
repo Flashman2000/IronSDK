@@ -3,14 +3,14 @@
   <br></br>
 <b>Developed by Vedant Thorat of Ironclad #8080</b>
   <br/>
-  <i>Version World's Edition v1.0 | Updated 3/21/2019</i>
+  <i>Version World's Edition v1.1 | Last Updated 4/11/2019</i>
 </div>
 
 # IronSDK
 The beta branch.... name kinda says it. This is the beta testing branch. Code in here usually isn't fully developed and may or may not be unstable. Beware.
 
 ## Project Status:
-**Our programming gnomes are working hard to get us World's Edition v1.2**
+**Our programming gnomes are working hard to get us World's Edition™. This will likely be the final competition ready version of the SDK for competiting at Worlds**
 
 ## Changelog:
 
