@@ -37,26 +37,26 @@ public class CraterSide extends LinearOpMode {
         robot.delpoyAndOrient(this, telemetry, 0.35);
 
         if(location == "C") {
-            robot.moveWithEncoder(1, this, 900, telemetry);
+            robot.moveWithEncoder(0.3, this, 1300, telemetry);
         }
         if(location == "R"){
-            robot.moveWithEncoder(1,this, 900, telemetry);
+            robot.moveWithEncoder(0.3,this, 1300, telemetry);
         }
 
         if(location == "L"){
-            robot.moveWithEncoder(1,this, 950, telemetry);
+            robot.moveWithEncoder(0.3,this, 1500, telemetry);
         }
 
         sleep(500);
 
         if(location == "R") {
-            robot.moveWithEncoder(-1, this, -800, telemetry);
+            robot.moveWithEncoder(-0.3, this, -800, telemetry);
         }
         if(location == "C"){
-            robot.moveWithEncoder(-1, this, -700, telemetry);
+            robot.moveWithEncoder(-0.3, this, -700, telemetry);
         }
         if(location == "L"){
-            robot.moveWithEncoder(-1,this, -600, telemetry);
+            robot.moveWithEncoder(-0.3,this, -800, telemetry);
         }
         sleep(500);
 
@@ -69,17 +69,17 @@ public class CraterSide extends LinearOpMode {
         if(location == "L"){
             robot.reOrient(this, telemetry, 0.35, -20);
         }
-        sleep(500);
+        sleep(4500);
 
         if(location == "C") {
-            robot.moveWithEncoder(1, this, 1855, telemetry);
+            robot.creepWithDistance(this, 0.2, 35, telemetry);
         }
 
         if(location == "R"){
-            robot.moveWithEncoder(1, this, 1880, telemetry);
+            robot.creepWithDistance(this, 0.2, 35, telemetry);
         }
         if(location == "L"){
-            robot.moveWithEncoder(1, this, 1800, telemetry);
+            robot.creepWithDistance(this, 0.2, 33, telemetry);
         }
         sleep(500);
 
@@ -91,7 +91,7 @@ public class CraterSide extends LinearOpMode {
 
         sleep(500);
 
-        robot.pivotLeftWithImu(this, telemetry, 0.7, 35);
+        robot.pivotLeftWithImu(this, telemetry, 0.4, 35);
 
         sleep(500);
 
@@ -105,11 +105,7 @@ public class CraterSide extends LinearOpMode {
 
         //robot.pivotRightWithImu(this, telemetry, 0.7, 35);
 
-        robot.moveWithEncoder(-1, this, -1500, telemetry);
-
-        //robot.pivotRightWithImu(this, telemetry, 0.7, 35);
-
-        robot.moveWithEncoder(-1, this, -1800, telemetry);
+        robot.moveWithEncoder(-1, this, -3600, telemetry);
 
         robot.spool.setPower(-1);
         sleep(1500);

@@ -21,6 +21,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 
@@ -237,24 +238,29 @@ public class RobotConfigs extends VarRepo{
 
     public void moveWithEncoder(double power, LinearOpMode opmode, int pulses, Telemetry tel){
 
+        resetAngle();
+
         RB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        LB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        RB.setPower(-power);
-        LB.setPower(-power);
+        RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         if(power > 0) {
 
             while (opmode.opModeIsActive() && LB.getCurrentPosition() > -pulses && RB.getCurrentPosition() > -pulses) {
+                correction = checkDirection(0.01);
+                LB.setPower(-power + correction);
+                RB.setPower(-power - correction);
                 tel.addData("RB", RB.getCurrentPosition());
                 tel.addData("LB", LB.getCurrentPosition());
                 tel.update();
             }
         }else{
             while (opmode.opModeIsActive() && LB.getCurrentPosition() < -pulses && RB.getCurrentPosition() < -pulses) {
+                correction = checkDirection(0.01);
+                LB.setPower(-power + correction);
+                RB.setPower(-power - correction);
                 tel.addData("RB", RB.getCurrentPosition());
                 tel.addData("LB", LB.getCurrentPosition());
                 tel.update();
@@ -397,7 +403,7 @@ public class RobotConfigs extends VarRepo{
 
             turnRight(power);
 
-            while(opmode.opModeIsActive() && heading > -40){
+            while(opmode.opModeIsActive() && heading > -35){
 
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 heading = angles.firstAngle;
@@ -458,16 +464,22 @@ public class RobotConfigs extends VarRepo{
 
     }
 
-    public void creepWithDistance(LinearOpMode opmode, double power, double distance){
+    public void creepWithDistance(LinearOpMode opmode, double power, double distance, Telemetry tel){
 
-        resetAngle(); 
+        tel.clearAll();
 
-        while(opmode.opModeIsActive() && rangeSensor.cmUltrasonic() > distance) {
-            correction = checkDirection();
+        resetAngle();
+
+        while(opmode.opModeIsActive() && rangeSensor.getDistance(DistanceUnit.CM) > distance) {
+            correction = checkDirection(0.01);
             LB.setPower(-power + correction);
             RB.setPower(-power - correction);
-        }
+            tel.addData("Target Dis", distance);
+            tel.addData("Current Dis", rangeSensor.getDistance(DistanceUnit.CM));
+            tel.update();
 
+        }
+        tel.clearAll();
         stop();
 
     }
@@ -510,12 +522,12 @@ public class RobotConfigs extends VarRepo{
      * See if we are moving in a straight line and if not return a power correction value.
      * @return Power adjustment, + is adjust left - is adjust right.
      */
-    private double checkDirection()
+    private double checkDirection(double adj)
     {
         // The gain value determines how sensitive the correction is to direction changes.
         // You will have to experiment with your robot to get small smooth direction changes
         // to stay on a straight line.
-        double correction, angle, gain = .10;
+        double correction, angle, gain = adj;
 
         angle = getAngle();
 
