@@ -5,12 +5,14 @@ import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -42,20 +44,27 @@ public class RobotConfigs extends VarRepo{
 
         claim = hwm.get(Servo.class, "claim");
 
+        modernRoboticsI2cGyro = hwm.get(ModernRoboticsI2cGyro.class, "mrgyro");
+        gyro = (IntegratingGyroscope)modernRoboticsI2cGyro;
+
         RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         piv1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         piv2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         piv2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         piv2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         linAct.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        RB.setDirection(DcMotorSimple.Direction.REVERSE);
+        //RB.setDirection(DcMotorSimple.Direction.REVERSE);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
@@ -69,46 +78,41 @@ public class RobotConfigs extends VarRepo{
 
         webcam = hwm.get(WebcamName.class, "Webcam");
 
+        modernRoboticsI2cGyro.calibrate();
+
         autoAlignDetector = new GoldAlignDetector();
         autoAlignDetector.VUFORIA_KEY = "AWbfTmn/////AAABmY0xuIe3C0RHvL3XuzRxyEmOT2OekXBSbqN2jot1si3OGBObwWadfitJR/D6Vk8VEBiW0HG2Q8UAEd0//OliF9aWCRmyDJ1mMqKCJZxpZemfT5ELFuWnJIZWUkKyjQfDNe2RIaAh0ermSxF4Bq77IDFirgggdYJoRIyi2Ys7Gl9lD/tSonV8OnldIN/Ove4/MtEBJTKHqjUEjC5U2khV+26AqkeqbxhFTNiIMl0LcmSSfugGhmWFGFtuPtp/+flPBRGoBO+tSl9P2sV4mSUBE/WrpHqB0Jd/tAmeNvbtgQXtZEGYc/9NszwRLVNl9k13vrBcgsiNxs2UY5xAvA4Wb6LN7Yu+tChwc+qBiVKAQe09";
         autoAlignDetector.init(hwm.appContext, CameraViewDisplay.getInstance(), DogeCV.CameraMode.WEBCAM,
                 false, webcam);
         autoAlignDetector.useDefaults();
+        autoAlignDetector.setAlignSettings(0, 170);
         autoAlignDetector.enable();
         tel.addLine("Ready to go :)");
         tel.update();
 
     }
 
-    public void initTele(HardwareMap hwm, Telemetry tel)
-    {
+    public void initTele(HardwareMap hwm, Telemetry tel) {
 
         RB = hwm.get(DcMotor.class, "RB");
         LB = hwm.get(DcMotor.class, "LB");
-
         piv1 = hwm.get(DcMotor.class, "piv1");
         piv2 = hwm.get(DcMotor.class, "piv2");
-
         linAct = hwm.get(DcMotor.class, "linAct");
-
         spool = hwm.get(DcMotor.class, "spool");
-
         collec = hwm.get(DcMotor.class, "coll");
+        slammer = hwm.get(DcMotor.class, "slam");
 
         box = hwm.get(Servo.class, "box");
 
         RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
         piv1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         piv2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        piv2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        piv2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
         linAct.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
         spool.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        collec.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        slammer.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
 
@@ -117,145 +121,39 @@ public class RobotConfigs extends VarRepo{
         channel1 = -gp1.left_stick_y;
         channel3 =  gp1.right_stick_x;
 
-        if(gp1.a){
-
-            box.setPosition(1);
-
-        }
-
-        if(gp1.y){
-
-            box.setPosition(0);
-
-        }
-
         RBPwr = Range.clip(channel1 - channel3, -1, 1);
         LBPwr = Range.clip(channel1 + channel3, -1, 1);
-
         linActPwr = Range.clip(gp1.right_trigger - gp1.left_trigger, -1, 1);
-
         piv1Pwr = Range.clip(-gp2.right_stick_y, -1, 1);
         piv2Pwr = Range.clip(gp2.right_stick_y, -1, 1);
-
         spoolPwr = Range.clip(gp2.left_stick_y, -1, 1);
+        collecPwr = Range.clip(gp2.right_trigger - gp2.left_trigger, -1, 1);
 
         RB.setPower(-RBPwr*0.75);
         LB.setPower(-LBPwr*0.75);
-
-
         linAct.setPower(linActPwr);
-
-        piv1.setPower(piv1Pwr*0.5);
-        piv2.setPower(piv2Pwr*0.5);
-
+        piv1.setPower(piv1Pwr*0.7);
+        piv2.setPower(piv2Pwr*0.7);
         spool.setPower(spoolPwr);
-        collec.setPower(gp2.right_trigger - gp2.left_trigger);
+        collec.setPower(collecPwr);
+        slammer.setPower(0);
 
-
-
-        tel.addData("Pivot Pos", piv2.getCurrentPosition());
-        tel.update();
-
-        if(gp2.a){
-
-            box.setPosition(0);
-
+        if(gp1.dpad_up){
+            slammer.setPower(1);
         }
 
-        if(gp2.y){
-
-            piv2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            piv2.setTargetPosition(900);
-            if (piv2.getCurrentPosition() < 900){
-                piv2.setPower(0.6);
-                piv1.setPower(-0.6);
-            }else{
-                piv2.setPower(-0.6);
-                piv1.setPower(0.6);
-            }
-
-            box.setPosition(0.3);
-
-            while ((opmode.opModeIsActive() && piv2.isBusy())){
-
-                channel1 = -gp1.left_stick_y;
-                channel3 =  gp1.right_stick_x;
-
-                RBPwr = Range.clip(channel1 - channel3, -1, 1);
-                LBPwr = Range.clip(channel1 + channel3, -1, 1);
-
-                linActPwr = Range.clip(gp1.right_trigger - gp1.left_trigger, -1, 1);
-
-                piv1Pwr = Range.clip(gp2.left_stick_y, -1, 1);
-                piv2Pwr = Range.clip(-gp2.left_stick_y, -1, 1);
-
-                spoolPwr = Range.clip(gp2.right_stick_y, -1, 1);
-
-                RB.setPower(-RBPwr*0.75);
-                LB.setPower(-LBPwr*0.75);
-
-                collec.setPower(gp2.right_trigger-gp2.left_trigger);
-
-                linAct.setPower(linActPwr);
-
-                //piv1.setPower(piv1Pwr);
-                //piv2.setPower(piv2Pwr);
-
-                spool.setPower(spoolPwr);
-
-                tel.addData("Pivot Pos", piv2.getCurrentPosition());
-                tel.update();
-
-            }
-            piv2.setPower(0);
-            piv1.setPower(0);
-            piv2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
+        if(gp1.dpad_down){
+            slammer.setPower(-1);
         }
 
-        if(gp2.x){
+        if(gp2.dpad_up){
+            piv1.setPower(0.375);
+            piv2.setPower(-0.375);
+        }
 
-            piv2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            piv2.setTargetPosition(1900);
-            piv2.setPower(0.6);
-            piv1.setPower(-0.6);
-            box.setPosition(0.1);
-
-            while ((opmode.opModeIsActive() && piv2.isBusy())){
-
-                channel1 = -gp1.left_stick_y;
-                channel3 =  gp1.right_stick_x;
-
-                RBPwr = Range.clip(channel1 - channel3, -1, 1);
-                LBPwr = Range.clip(channel1 + channel3, -1, 1);
-
-                linActPwr = Range.clip(gp1.right_trigger - gp1.left_trigger, -1, 1);
-
-                piv1Pwr = Range.clip(gp2.left_stick_y, -1, 1);
-                piv2Pwr = Range.clip(-gp2.left_stick_y, -1, 1);
-
-                spoolPwr = Range.clip(gp2.right_stick_y, -1, 1);
-
-                RB.setPower(-RBPwr*0.75);
-                LB.setPower(-LBPwr*0.75);
-
-                collec.setPower(gp2.right_trigger-gp2.left_trigger);
-
-                linAct.setPower(linActPwr);
-
-                //piv1.setPower(piv1Pwr);
-                //piv2.setPower(piv2Pwr);
-
-                spool.setPower(spoolPwr);
-
-                tel.addData("Pivot Pos", piv2.getCurrentPosition());
-                tel.update();
-
-            }
-            piv2.setPower(0);
-            piv1.setPower(0);
-            piv2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
+        if(gp2.dpad_down){
+            piv1.setPower(-0.375);
+            piv2.setPower(0.375);
         }
 
     }
@@ -317,9 +215,9 @@ public class RobotConfigs extends VarRepo{
 
     public void move(double power) {
 
-        RB.setPower(power);
+        RB.setPower(-power);
 
-        LB.setPower(power);
+        LB.setPower(-power);
 
 
     }
@@ -333,7 +231,40 @@ public class RobotConfigs extends VarRepo{
         stop();
     }
 
-    public void turnLeft(double power){
+    public void moveWithEncoder(double power, LinearOpMode opmode, int pulses, Telemetry tel){
+
+        RB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        LB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        RB.setPower(-power);
+        LB.setPower(-power);
+
+        if(power > 0) {
+
+            while (opmode.opModeIsActive() && LB.getCurrentPosition() > -pulses && RB.getCurrentPosition() > -pulses) {
+                tel.addData("RB", RB.getCurrentPosition());
+                tel.addData("LB", LB.getCurrentPosition());
+                tel.update();
+            }
+        }else{
+            while (opmode.opModeIsActive() && LB.getCurrentPosition() < -pulses && RB.getCurrentPosition() < -pulses) {
+                tel.addData("RB", RB.getCurrentPosition());
+                tel.addData("LB", LB.getCurrentPosition());
+                tel.update();
+            }
+        }
+
+        RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        stop();
+
+    }
+
+    public void turnRight(double power){
 
         RB.setPower(power);
 
@@ -342,7 +273,7 @@ public class RobotConfigs extends VarRepo{
 
     }
 
-    public void turnLeft(double power, long time, LinearOpMode opmode){
+    public void turnRight(double power, long time, LinearOpMode opmode){
 
         turnLeft(power);
         opmode.sleep(time);
@@ -350,7 +281,7 @@ public class RobotConfigs extends VarRepo{
 
     }
 
-    public void turnRight(double power){
+    public void turnLeft(double power){
 
         RB.setPower(-power);
 
@@ -358,7 +289,7 @@ public class RobotConfigs extends VarRepo{
 
     }
 
-    public void turnRight(double power, long time, LinearOpMode opmode){
+    public void turnLeft(double power, long time, LinearOpMode opmode){
 
         turnRight(power);
 
@@ -420,15 +351,20 @@ public class RobotConfigs extends VarRepo{
 
         mineralLoc = scan(opmode, tel);
 
+        tel.addData("Location", mineralLoc);
+        tel.update();
+
+        autoAlignDetector.disable();
+
         opmode.sleep(500);
 
-        deploy(-1, 3000, opmode);
+        deploy(-0.5, 5000, opmode);
 
         if(mineralLoc == "C"){
 
-            turnLeft(power);
+            turnRight(power);
 
-            while(opmode.opModeIsActive() && heading < 100){
+            while(opmode.opModeIsActive() && heading > -65){
 
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 heading = angles.firstAngle;
@@ -440,9 +376,9 @@ public class RobotConfigs extends VarRepo{
 
         if (mineralLoc == "R") {
 
-            turnLeft(power);
+            turnRight(power);
 
-            while (opmode.opModeIsActive() && heading < 50){
+            while (opmode.opModeIsActive() && heading > -90){
 
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 heading = angles.firstAngle;
@@ -455,9 +391,9 @@ public class RobotConfigs extends VarRepo{
 
         if (mineralLoc == "L") {
 
-            turnLeft(power);
+            turnRight(power);
 
-            while(opmode.opModeIsActive() && heading < 150){
+            while(opmode.opModeIsActive() && heading > -40){
 
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 heading = angles.firstAngle;
@@ -469,6 +405,56 @@ public class RobotConfigs extends VarRepo{
         }
 
     }
+
+    public void reOrient(LinearOpMode opmode, Telemetry tel, double power, double angle){
+
+        turnLeft(power);
+
+        while(opmode.opModeIsActive() && heading < angle){
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            heading = angles.firstAngle;
+        }
+
+        stop();
+
+    }
+
+    public void pivotLeftWithImu(LinearOpMode opmode,  Telemetry tel, double power, double angle){
+
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        heading = angles.firstAngle;
+
+        RB.setPower(-power);
+
+        while (opmode.opModeIsActive() && heading < angle) {
+                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                heading = angles.firstAngle;
+
+        }
+
+        stop();
+
+    }
+
+    public void pivotRightWithImu(LinearOpMode opmode,  Telemetry tel, double power, double angle){
+
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        heading = angles.firstAngle;
+
+        LB.setPower(-power);
+
+
+        while (opmode.opModeIsActive() && heading < angle) {
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            heading = angles.firstAngle;
+
+        }
+
+        stop();
+
+    }
+
+
 
 
 

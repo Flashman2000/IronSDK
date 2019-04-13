@@ -2,8 +2,10 @@ package org.firstinspires.ftc.teamcode.Ironclad;
 
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -30,6 +32,8 @@ public class VarRepo {
 
     public DcMotor collec;
 
+    public DcMotor slammer;
+
     public WebcamName webcam;
 
     public float RFPwr;
@@ -43,6 +47,8 @@ public class VarRepo {
     public float linActPwr;
 
     public float spoolPwr;
+
+    public float collecPwr;
 
     public float channel1;
     public float channel2;
@@ -67,6 +73,9 @@ public class VarRepo {
     float heading;
 
     boolean collectOn = false;
+
+    IntegratingGyroscope gyro;
+    ModernRoboticsI2cGyro modernRoboticsI2cGyro;
 
 
 }
