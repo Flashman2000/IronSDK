@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Ironclad;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
@@ -54,6 +55,15 @@ public class VarRepo {
     public float channel2;
     public float channel3;
     public float goalHeading;
+
+    public double correction;
+
+    Orientation lastAngles = new Orientation();
+
+    double globalAngle;
+
+
+    ModernRoboticsI2cRangeSensor rangeSensor;
 
 
     public GoldAlignDetector autoAlignDetector;

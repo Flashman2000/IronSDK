@@ -114,7 +114,7 @@ The beta branch.... name kinda says it. This is the beta testing branch. Code in
 - Inclusion of double sampling autonomous (95 points total)<img src="https://i.imgur.com/0xKIQUU.jpg" width="5%" height="5%" class="center">
 - TeleOperative ease of use features added
 
-### World's Edition v1.0<img src="https://i.imgur.com/hKBySHB.png" width="2.5%" height="2.5%" class="center"> (3/21/19)
+### Worlds Edition v1.0<img src="https://i.imgur.com/hKBySHB.png" width="2.5%" height="2.5%" class="center"> (3/21/19)
 - New versioning system in order to commemorate, and *maybe* flex :)
 - Updated DogeCV Computer Vision Library to 2019.1 (https://github.com/MechanicalMemes/DogeCV)
 - New methods in development for greater effeciency and streamlining
@@ -123,6 +123,6 @@ The beta branch.... name kinda says it. This is the beta testing branch. Code in
 - ALOT of clean up/optimization
 - Recovered the readme. Welcome back :), we missed you <img src="https://i.imgur.com/sjpTVBr.png" width="3%" height="3%" class="center">
 
-### World's Edition v1.1<img src="https://i.imgur.com/hKBySHB.png" width="2.5%" height="2.5%" class="center"> (4/11/19)
+### Worlds Edition v1.1<img src="https://i.imgur.com/hKBySHB.png" width="2.5%" height="2.5%" class="center"> (4/11/19)
 - DogeCV view orientation bug fixed (rotated 90 degrees counter clockwise)
 - Changed motion methods and redesigned teleop to occomodate for a 2 wheel drive omni-wheel drive train
