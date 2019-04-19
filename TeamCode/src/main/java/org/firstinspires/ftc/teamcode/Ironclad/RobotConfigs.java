@@ -8,9 +8,7 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
@@ -249,12 +247,12 @@ public class RobotConfigs extends VarRepo{
         if(power > 0) {
 
             while (opmode.opModeIsActive() && LB.getCurrentPosition() > -pulses && RB.getCurrentPosition() > -pulses) {
-                correction = checkDirection(0.01);
-                LB.setPower(-power + correction);
-                RB.setPower(-power - correction);
+                LB.setPower(-power);
+                RB.setPower(-power);
                 tel.addData("RB", RB.getCurrentPosition());
                 tel.addData("LB", LB.getCurrentPosition());
                 tel.update();
+
             }
         }else{
             while (opmode.opModeIsActive() && LB.getCurrentPosition() < -pulses && RB.getCurrentPosition() < -pulses) {
@@ -291,6 +289,20 @@ public class RobotConfigs extends VarRepo{
 
     }
 
+    public void  turnRightGyro(double power, int angle, LinearOpMode opmode){
+
+        turnRight(power);
+
+        while(opmode.opModeIsActive() && heading > angle){
+
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            heading = angles.firstAngle;
+        }
+
+        stop();
+
+    }
+
     public void turnLeft(double power){
 
         RB.setPower(-power);
@@ -304,6 +316,20 @@ public class RobotConfigs extends VarRepo{
         turnRight(power);
 
         opmode.sleep(time);
+
+        stop();
+
+    }
+
+    public void turnLeftGyro(double power, int angle, LinearOpMode opmode){
+
+        turnLeft(power);
+
+        while ((opmode.opModeIsActive() && heading < angle)){
+
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            heading = angles.firstAngle;
+        }
 
         stop();
 
@@ -388,14 +414,26 @@ public class RobotConfigs extends VarRepo{
 
             turnRight(power);
 
-            while (opmode.opModeIsActive() && heading > -90){
+            while (opmode.opModeIsActive() && heading > -65){
 
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
                 heading = angles.firstAngle;
 
             }
+            stop();
+
+            opmode.sleep(500);
+            moveWithEncoder(0.3, opmode, 200, tel);
+
+            turnRight(power);
+
+            while (opmode.opModeIsActive() && heading > -95){
+                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                heading = angles.firstAngle;
+            }
 
             stop();
+
 
         }
 

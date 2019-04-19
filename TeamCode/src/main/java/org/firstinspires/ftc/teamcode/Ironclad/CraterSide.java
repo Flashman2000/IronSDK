@@ -36,6 +36,8 @@ public class CraterSide extends LinearOpMode {
 
         robot.delpoyAndOrient(this, telemetry, 0.35);
 
+        sleep(500);
+
         if(location == "C") {
             robot.moveWithEncoder(0.3, this, 1300, telemetry);
         }
@@ -72,14 +74,14 @@ public class CraterSide extends LinearOpMode {
         sleep(4500);
 
         if(location == "C") {
-            robot.creepWithDistance(this, 0.2, 35, telemetry);
+            robot.creepWithDistance(this, 0.3, 35, telemetry);
         }
 
         if(location == "R"){
-            robot.creepWithDistance(this, 0.2, 35, telemetry);
+            robot.creepWithDistance(this, 0.3, 35, telemetry);
         }
         if(location == "L"){
-            robot.creepWithDistance(this, 0.2, 33, telemetry);
+            robot.creepWithDistance(this, 0.3, 31, telemetry);
         }
         sleep(500);
 
@@ -95,9 +97,10 @@ public class CraterSide extends LinearOpMode {
 
         sleep(500);
 
-        robot.moveWithEncoder(1, this, 1000, telemetry);
+        robot.moveWithEncoder(1, this, 500, telemetry);
 
-        //robot.pivotLeftWithImu(this, telemetry, 0.7, 35);
+        //robot.pivotLeftWithImu(this, telemetry, 0.7, 35);0
+
 
         robot.claim.setPosition(1);
 
@@ -105,7 +108,7 @@ public class CraterSide extends LinearOpMode {
 
         //robot.pivotRightWithImu(this, telemetry, 0.7, 35);
 
-        robot.moveWithEncoder(-1, this, -3600, telemetry);
+        robot.moveWithEncoder(-0.3, this, -3800, telemetry);
 
         robot.spool.setPower(-1);
         sleep(1500);

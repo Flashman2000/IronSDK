@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Autonomous(name="Test Auto")
+@Disabled
 public class TestAuto extends LinearOpMode {
 
     RobotConfigs robot = new RobotConfigs();
