@@ -3,14 +3,14 @@
   <br></br>
 <b>Developed by Vedant Thorat of Ironclad #8080</b>
   <br/>
-  <i>Version World's Edition v1.1 | Last Updated 4/11/2019</i>
+  <i>Version World's Edition | Last Updated 4/15/2019</i>
 </div>
 
 # IronSDK
 The beta branch.... name kinda says it. This is the beta testing branch. Code in here usually isn't fully developed and may or may not be unstable. Beware.
 
 ## Project Status:
-**Our programming gnomes are working hard to get us World's Edition™. This will likely be the final competition ready version of the SDK for competiting at Worlds**
+**Completed beta testing**
 
 ## Changelog:
 
@@ -128,7 +128,7 @@ The beta branch.... name kinda says it. This is the beta testing branch. Code in
 - Changed motion methods and redesigned teleop to occomodate for a 2 wheel drive omni-wheel drive train
 
 ### Worlds Edition<img src="https://i.imgur.com/hKBySHB.png" width="2.5%" height="2.5%" class="center"> (4/15/19)
-- Final competition SDK
+- Final competition/year SDK
 - Adjusted color filter threshold to adjust for stadium lighting (yellow light)
 
 
