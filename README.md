@@ -53,3 +53,10 @@ Ironclad 8080's programming repository. This repository is constantly being upda
 - Double sampling program included (95 points total)
 - TeleOperative ease of use features added
 
+### Worlds Edition<img src="https://i.imgur.com/hKBySHB.png" width="2.5%" height="2.5%" class="center"> (4/15/19)
+ New versioning system in order to commemorate, and *maybe* flex :)
+- Updated DogeCV Computer Vision Library to 2019.1 (https://github.com/MechanicalMemes/DogeCV)
+- New methods in development for greater effeciency and streamlining
+- DogeCV view orientation bug fixed (rotated 90 degrees counter clockwise)
+- Final competition/year SDK
+- Adjusted color filter threshold to adjust for stadium lighting (yellow light)
