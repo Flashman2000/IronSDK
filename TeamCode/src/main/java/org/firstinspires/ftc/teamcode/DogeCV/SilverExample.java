@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode.DogeCV;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
+import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
 import com.disnodeteam.dogecv.detectors.roverrukus.SilverDetector;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -41,20 +42,20 @@ import org.opencv.core.Size;
 
 @TeleOp(name="Silver Example", group="DogeCV")
 @Disabled
-public class SilverExample extends OpMode
-{
+public class SilverExample extends OpMode {
+    // Detector object
     private SilverDetector detector;
-
 
     @Override
     public void init() {
-        telemetry.addData("Status", "DogeCV 2018.0 - Gold SilverDetector Example");
+        telemetry.addData("Status", "DogeCV 2019.1 - Silver Detector Example");
 
-        detector = new SilverDetector();
-        detector.setAdjustedSize(new Size(480, 270));
-        detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance());
-        detector.useDefaults();
-        // Optional Tuning
+        // Setup detector
+        detector = new SilverDetector(); // Create detector
+        detector.setAdjustedSize(new Size(480, 270)); // Set detector size
+        detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize detector with app context and camera
+        detector.useDefaults(); // Set default detector settings
+        // Optional tuning
 
         detector.downscale = 0.4; // How much to downscale the input frames
 
@@ -64,11 +65,12 @@ public class SilverExample extends OpMode
 
         detector.ratioScorer.weight = 5;
         detector.ratioScorer.perfectRatio = 1.0;
-        detector.enable();
-
-
+        detector.enable(); // Start detector
     }
 
+    /*
+     * Code to run REPEATEDLY when the driver hits INIT
+     */
     @Override
     public void init_loop() {
     }
@@ -81,7 +83,9 @@ public class SilverExample extends OpMode
 
     }
 
-
+    /*
+     * Code to run REPEATEDLY when the driver hits PLAY
+     */
     @Override
     public void loop() {
 
@@ -92,7 +96,7 @@ public class SilverExample extends OpMode
      */
     @Override
     public void stop() {
-        detector.disable();
+        if(detector != null) detector.disable(); //Make sure to run this on stop!
     }
 
 }
