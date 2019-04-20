@@ -3,7 +3,7 @@
   <br></br>
 <b>Developed by Vedant Thorat of Ironclad #8080</b>
   <br/>
-  <i>Version World's Edition | Last Updated 4/15/2019</i>
+  <i>Version World's Edition<img src="https://i.imgur.com/hKBySHB.png" width="2.5%" height="2.5%" class="center"> | Last Updated 4/15/2019</i>
 </div>
 
 # IronSDK
