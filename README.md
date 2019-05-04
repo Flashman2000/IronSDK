@@ -16,7 +16,7 @@ Ironclad 8080's programming repository. This repository is constantly being upda
 - All my reset monkeys <img src="https://i.imgur.com/MeZJyow.png" width="2.5%" height="2.5%" class="center">
 
 ## Project Status:
-**Awaiting push from beta branch for World's Edition™, the final competition ready SDK for World's.**
+**Project Compete. Goodbye Rover Ruckus :(**
 
 ## Changelog:
 
